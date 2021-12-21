@@ -3,8 +3,10 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
 
 // Components
-import ItemsList from "./components/ItemsList";
+import ProductList from "./components/ProductsList";
 import Navbar from "./components/Navbar";
+import ProductDescription from "./components/ProductDescription";
+import Cart from "./components/Cart";
 
 export class App extends Component {
   constructor(props) {
@@ -28,9 +30,11 @@ export class App extends Component {
         <Routes>
           <Route
             path="/"
-            element={<ItemsList currency={this.state.currency} />}
+            element={<ProductList currency={this.state.currency} />}
             exact
           ></Route>
+          <Route path="/product/:productID" element={<ProductDescription />} />
+          <Route path="/cart" element={<Cart />} />
         </Routes>
       </Router>
     );

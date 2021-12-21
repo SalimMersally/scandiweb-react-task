@@ -3,9 +3,9 @@ import { GET_CATEGORIES, GET_PRODUCTS } from "../Queries";
 import client from "../Client";
 
 // components
-import Item from "./Item";
+import Product from "./Product";
 
-export class ItemsList extends Component {
+export class ProductsList extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -81,9 +81,13 @@ export class ItemsList extends Component {
           </select>
         </div>
         <div className="itemsList">
-          {this.state.products.map((item) => {
+          {this.state.products.map((product) => {
             return (
-              <Item item={item} key={item.id} currency={this.props.currency} />
+              <Product
+                product={product}
+                key={product.id}
+                currency={this.props.currency}
+              />
             );
           })}
         </div>
@@ -92,4 +96,4 @@ export class ItemsList extends Component {
   }
 }
 
-export default ItemsList;
+export default ProductsList;

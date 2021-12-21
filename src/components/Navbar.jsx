@@ -4,7 +4,7 @@ import client from "../Client";
 
 // Icons
 import Logo from "../Icons/Logo";
-import Cart from "../Icons/Cart";
+import CartIcon from "../Icons/CartIcon";
 
 export class Navbar extends Component {
   constructor(props) {
@@ -43,7 +43,7 @@ export class Navbar extends Component {
               })}
             </select>
           </div>
-          <Cart />
+          <CartIcon />
         </div>
       </nav>
     );

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-export class Cart extends Component {
+export class CartIcon extends Component {
   render() {
     return (
       <svg
@@ -27,4 +27,4 @@ export class Cart extends Component {
   }
 }
 
-export default Cart;
+export default CartIcon;
