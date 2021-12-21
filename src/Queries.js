@@ -14,6 +14,7 @@ export const GET_PRODUCTS = gql`
       products {
         id
         name
+        inStock
         gallery
         prices {
           currency {
@@ -23,6 +24,15 @@ export const GET_PRODUCTS = gql`
           amount
         }
       }
+    }
+  }
+`;
+
+export const GET_CURRENCIES = gql`
+  query {
+    currencies {
+      label
+      symbol
     }
   }
 `;

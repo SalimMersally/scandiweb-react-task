@@ -69,16 +69,22 @@ export class ItemsList extends Component {
   render() {
     return (
       <div>
-        <div>
+        <div className="categories">
           <select onChange={(e) => this.setCategory(e.target.value)}>
             {this.state.categories.map((category, index) => {
-              return <option key={index}>{category.name}</option>;
+              return (
+                <option value={category.name} key={index}>
+                  {category.name}
+                </option>
+              );
             })}
           </select>
         </div>
         <div className="itemsList">
           {this.state.products.map((item) => {
-            return <Item item={item} key={item.id} />;
+            return (
+              <Item item={item} key={item.id} currency={this.props.currency} />
+            );
           })}
         </div>
       </div>

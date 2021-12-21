@@ -6,16 +6,21 @@ import Cart from "../Icons/Cart";
 export class Item extends Component {
   render() {
     const { item } = this.props;
+    const price = item.prices.filter((p) => {
+      return p.currency.label === this.props.currency;
+    });
+
     return (
-      <div className="productItem">
+      <div className={item.inStock ? "productItem" : "productItemDisabled"}>
         <img src={item.gallery[0]} alt={item.name} />
         <div className="productName">{item.name}</div>
         <div className="productPrice">
-          {item.prices[0].currency.symbol + "" + item.prices[0].amount}
+          {price[0].currency.symbol + "" + price[0].amount}
         </div>
         <div className="addToCart">
           <Cart />
         </div>
+        {item.inStock ? "" : <div className="outStock">OUT OF STOCK</div>}
       </div>
     );
   }
