@@ -1,38 +1,88 @@
-.App {
-  text-align: center;
+body {
+  margin: 0px;
+  padding: 0px 101px 0px 101px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+nav {
+  padding: 24px 0px 24px 0px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+option,
+select {
+  font-family: "Raleway";
+  font-weight: 400;
+  font-size: 42px;
+  line-height: 67px;
+  color: #1d1f22;
+  margin: 0px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  text-indent: 1px;
+  text-overflow: "";
+  border: none;
+}
+
+.itemsList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+img {
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+}
+
+.productItem {
+  padding: 10px;
+  margin: 10px 0px 10px 0px;
+  width: 300px;
   display: flex;
   flex-direction: column;
+}
+
+.productItem:hover {
+  box-shadow: 0px 4px 35px 0px rgba(168, 172, 176, 0.19);
+  position: relative;
+}
+
+.addToCart {
+  display: none;
+  position: absolute;
+  bottom: 60px;
+  right: 25px;
+  border-radius: 50%;
+  background-color: rgba(94, 206, 123, 1);
+  width: 52px;
+  height: 52px;
+}
+
+.productItem:hover .addToCart {
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.productName {
+  font-family: "raleway";
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 28px;
+  color: #1d1f22;
+  margin-top: 24px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.productPrice {
+  font-family: "raleway";
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 28px;
+  color: #1d1f22;
 }
