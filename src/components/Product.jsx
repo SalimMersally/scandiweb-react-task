@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 // Icons
 import CartIcon from "../Icons/CartIcon";
@@ -17,9 +18,11 @@ export class Product extends Component {
         <div className="productPrice">
           {price[0].currency.symbol + "" + price[0].amount}
         </div>
-        <div className="addToCart">
-          <CartIcon />
-        </div>
+        <Link to={"/product/" + product.id}>
+          <div className="addToCart">
+            <CartIcon />
+          </div>
+        </Link>
         {product.inStock ? "" : <div className="outStock">OUT OF STOCK</div>}
       </div>
     );

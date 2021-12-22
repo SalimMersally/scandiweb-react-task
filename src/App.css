@@ -1,10 +1,10 @@
 body {
   margin: 0px;
-  padding: 0px 101px 0px 101px;
+  padding: 0px 100px 0px 100px;
 }
 
 nav {
-  padding: 24px 0px 24px 0px;
+  padding: 20px 0px 20px 0px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -62,7 +62,7 @@ select {
   justify-content: space-around;
 }
 
-img {
+.productItem img {
   width: 300px;
   height: 300px;
   object-fit: cover;
@@ -134,4 +134,111 @@ img {
   right: 0;
   text-align: center;
   top: 150px;
+}
+
+/* The below classes are all used in the Product Description Page */
+
+.productDesc {
+  margin-top: 25px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.imageList {
+  display: flex;
+  flex-direction: column;
+  margin-right: 10px;
+}
+
+.imageList img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  margin: 0px 0px 10px 0px;
+}
+
+.productImage {
+  width: 50%;
+  box-sizing: border-box;
+  margin: 0px 40px 0px 20px;
+}
+
+.productImage img {
+  width: 100%;
+}
+
+.productInfo {
+  width: 25%;
+  margin-left: 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+.productInfo h1 {
+  font-family: "Raleway";
+  font-weight: 600;
+  font-size: 30px;
+  line-height: 27px;
+  margin: 0px;
+  margin-bottom: 16px;
+  color: #1d1f22;
+}
+
+.productInfo h2 {
+  font-family: "Raleway";
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 27px;
+  margin: 0px;
+  margin-bottom: 32px;
+  color: #1d1f22;
+}
+
+.productInfoPrice h2 {
+  font-family: "Roboto Condensed";
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 18px;
+  margin: 0px;
+  margin-bottom: 10px;
+  color: #1d1f22;
+}
+
+.productInfoPrice p {
+  font-family: "Raleway";
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 46px;
+  margin: 0px;
+  margin-bottom: 20px;
+  color: #1d1f22;
+}
+
+.productInfo button {
+  padding: 16px 32px;
+  height: 52px;
+  background: #5ece7b;
+  font-family: "Raleway";
+  font-weight: 600;
+  font-size: 16px;
+  color: white;
+  border: 0px;
+  margin-bottom: 20px;
+}
+
+.productInfo button:hover {
+  background: #3fa35a;
+}
+
+.productInfo button:active {
+  background: #3fa35a;
+  color: #1d1f22;
+}
+
+.productDescription {
+  font-family: "Roboto";
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 26px;
+  color: #1d1f22;
 }

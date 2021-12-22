@@ -33,8 +33,15 @@ export class App extends Component {
             element={<ProductList currency={this.state.currency} />}
             exact
           ></Route>
-          <Route path="/product/:productID" element={<ProductDescription />} />
-          <Route path="/cart" element={<Cart />} />
+          <Route
+            path="/product/:productID"
+            element={<ProductDescription currency={this.state.currency} />}
+          />
+          <Route
+            path="/cart"
+            element={<Cart />}
+            currency={this.state.currency}
+          />
         </Routes>
       </Router>
     );
