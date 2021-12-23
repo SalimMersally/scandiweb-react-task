@@ -13,14 +13,14 @@ export class PlusIcon extends Component {
         <path
           d="M5 1V9"
           stroke="#1D1F22"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
         <path
           d="M1 5H9"
           stroke="#1D1F22"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
       </svg>
     );

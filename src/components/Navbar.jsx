@@ -44,6 +44,12 @@ export class Navbar extends Component {
     });
   };
 
+  closeCurrencyListIfOpen = () => {
+    if (this.state.showCurrencyList === true) {
+      this.setShowCurrencyList();
+    }
+  };
+
   render() {
     return (
       <nav>
@@ -84,6 +90,9 @@ export class Navbar extends Component {
             increaseQunatity={this.props.increaseQunatity}
             decreaseQuantity={this.props.decreaseQuantity}
             setAttribute={this.props.setAttribute}
+            closeCurrencyListIfOpen={this.closeCurrencyListIfOpen}
+            showCurrencyList={this.state.showCurrencyList}
+            calculateTotal={this.props.calculateTotal}
           />
         </div>
       </nav>

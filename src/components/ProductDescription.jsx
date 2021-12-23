@@ -71,6 +71,18 @@ export class ProductDescription extends Component {
         });
       }
     }
+    if (this.props.cart !== prevProp.cart) {
+      let productInCart = false;
+      const filtered = this.props.cart.filter((item) => {
+        return item.product.id === this.state.product.id;
+      });
+      if (filtered.length !== 0) {
+        productInCart = true;
+      }
+      this.setState((prev) => {
+        return { ...prev, productInCart };
+      });
+    }
   }
 
   setImage = (currentImage) => {

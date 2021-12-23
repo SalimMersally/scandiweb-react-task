@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 // Icons
 import CartIcon from "../Icons/CartIcon";
@@ -10,14 +11,25 @@ export class MiniCart extends Component {
     super(props);
     this.state = {
       showMiniCart: false,
+      total: 0,
     };
   }
 
   componentDidUpdate(prevProp) {
     if (this.state.showMiniCart) {
-      document.body.style.overflow = "hidden";
+      document.body.style.position = "fixed";
+      document.body.style.overflowY = "scroll";
+      document.body.style.left = "0";
+      document.body.style.right = "0";
     } else {
-      document.body.style.overflow = "auto";
+      document.body.style.position = "static";
+      document.body.style.overflowY = "auto";
+    }
+    if (this.state.showMiniCart && this.props.showCurrencyList) {
+      const showMiniCart = !this.state.showMiniCart;
+      this.setState((prev) => {
+        return { ...prev, showMiniCart };
+      });
     }
   }
 
@@ -26,6 +38,7 @@ export class MiniCart extends Component {
     this.setState((prev) => {
       return { ...prev, showMiniCart };
     });
+    this.props.closeCurrencyListIfOpen();
   };
 
   render() {
@@ -33,6 +46,11 @@ export class MiniCart extends Component {
       <div className="navCart">
         <div className="cartIcon" onClick={this.setShowMiniCart}>
           <CartIcon />
+          {this.props.cart.length === 0 ? (
+            ""
+          ) : (
+            <div className="cartLength">{this.props.cart.length}</div>
+          )}
         </div>
         <div
           className="miniCart"
@@ -43,12 +61,17 @@ export class MiniCart extends Component {
               <h1>My Bag.&nbsp;</h1>
               <h2>{this.props.cart.length + " items"}</h2>
             </div>
+            {this.props.cart.length === 0 ? (
+              <div className="cartEmpty">YOUR CART IS EMPTY</div>
+            ) : (
+              ""
+            )}
             {this.props.cart.map((item, index) => {
               let price = item.product.prices.filter((p) => {
                 return p.currency.label === this.props.currency;
               });
               return (
-                <div className="miniCartItem" key={index}>
+                <div className="miniCartItem" key={item.product.id}>
                   <div className="miniCartItemInfo">
                     <h3>{item.product.brand}</h3>
                     <h3>{item.product.name}</h3>
@@ -88,7 +111,7 @@ export class MiniCart extends Component {
                               }
                               return (
                                 <div
-                                  key={item.id}
+                                  key={index2}
                                   className={classN}
                                   style={style}
                                   onClick={() =>
@@ -132,6 +155,22 @@ export class MiniCart extends Component {
                 </div>
               );
             })}
+            {this.props.cart.length > 0 ? (
+              <div className="miniCartTotal">
+                <p>Total</p>
+                <p className="miniCartTotalAmount">
+                  {this.props.calculateTotal()}
+                </p>
+              </div>
+            ) : (
+              ""
+            )}
+            <div className="miniCartButtons">
+              <Link to="/cart" onClick={this.setShowMiniCart}>
+                <button className="viewBagButton">VIEW BAG</button>
+              </Link>
+              <button className="checkoutButton">CHECKOUT</button>
+            </div>
           </div>
         </div>
       </div>

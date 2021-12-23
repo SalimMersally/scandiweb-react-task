@@ -51,6 +51,13 @@ export class App extends Component {
         cart[index] = { product, quantity };
         return { ...prev, cart };
       });
+    } else {
+      this.setState((prev) => {
+        const cart = prev.cart.filter((item, itemIndex) => {
+          return index !== itemIndex;
+        });
+        return { ...prev, cart };
+      });
     }
   };
 
@@ -67,6 +74,19 @@ export class App extends Component {
     });
   };
 
+  calculateTotal = () => {
+    let total = 0;
+    let symbol = "";
+    this.state.cart.forEach((item) => {
+      let price = item.product.prices.filter((p) => {
+        return p.currency.label === this.state.currency;
+      });
+      total = total + item.quantity * price[0].amount;
+      symbol = price[0].currency.symbol;
+    });
+    return symbol + "" + total;
+  };
+
   render() {
     return (
       <Router>
@@ -77,6 +97,7 @@ export class App extends Component {
           increaseQunatity={this.increaseQunatity}
           decreaseQuantity={this.decreaseQuantity}
           setAttribute={this.setAttribute}
+          calculateTotal={this.calculateTotal}
         />
         <Routes>
           <Route
