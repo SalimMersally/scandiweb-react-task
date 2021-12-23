@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
 // Icons
-import CartIcon from "../Icons/CartIcon";
+import CartIcon from "../icons/CartIcon";
 
 export class Product extends Component {
   render() {

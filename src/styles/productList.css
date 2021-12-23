@@ -1,0 +1,99 @@
+/* the bellow classes are used in the product list page */
+
+.categories option,
+.categories select {
+  font-family: "Raleway";
+  font-weight: 400;
+  font-size: 42px;
+  line-height: 67px;
+  color: #1d1f22;
+  margin: 0px;
+}
+
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border-width: 0px;
+  outline: 0px;
+}
+
+.itemsList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.productItem img,
+.productItemDisabled img {
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+}
+
+.productItem,
+.productItemDisabled {
+  padding: 10px;
+  margin: 10px 0px 10px 0px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.productItemDisabled {
+  opacity: 0.5;
+}
+
+.productItem:hover,
+.productItemDisabled:hover {
+  box-shadow: 0px 4px 35px 0px rgba(168, 172, 176, 0.19);
+}
+
+.addToCart {
+  display: none;
+  position: absolute;
+  bottom: 60px;
+  right: 25px;
+  border-radius: 50%;
+  background-color: rgba(94, 206, 123, 1);
+  width: 52px;
+  height: 52px;
+}
+
+.productItem:hover .addToCart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.productName {
+  font-family: "raleway";
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 28px;
+  color: #1d1f22;
+  margin-top: 24px;
+}
+
+.productPrice {
+  font-family: "raleway";
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 28px;
+  color: #1d1f22;
+}
+
+.outStock {
+  color: #000000;
+  font-family: "raleway";
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 38.4px;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  text-align: center;
+  top: 150px;
+}

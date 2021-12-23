@@ -1,0 +1,148 @@
+/* The below classes are all used in the Product Description Page */
+
+.productDesc {
+  margin: 80px 0px 40px 0px;
+  display: flex;
+}
+
+.imageList {
+  display: flex;
+  flex-direction: column;
+  margin-right: 10px;
+}
+
+.imageList img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  margin: 0px 0px 10px 0px;
+}
+
+.productImage {
+  width: 50%;
+  box-sizing: border-box;
+  margin: 0px 40px 0px 20px;
+}
+
+.productImage img {
+  width: 100%;
+}
+
+.productInfo {
+  width: 30%;
+  margin-left: 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+.productInfo h1 {
+  font-family: "Raleway";
+  font-weight: 600;
+  font-size: 30px;
+  line-height: 27px;
+  margin: 0px;
+  margin-bottom: 16px;
+  color: #1d1f22;
+}
+
+.productInfo h2 {
+  font-family: "Raleway";
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 27px;
+  margin: 0px;
+  margin-bottom: 32px;
+  color: #1d1f22;
+}
+
+.productAttributes {
+  display: flex;
+  flex-direction: column;
+}
+
+.productInfoPrice h2,
+.attribute h2 {
+  font-family: "Roboto Condensed";
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 18px;
+  margin: 0px;
+  margin-bottom: 10px;
+  color: #1d1f22;
+}
+
+.attributeItems {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+}
+
+.attributeItem {
+  min-width: 65px;
+  height: 45px;
+  border: 1px solid #1d1f22;
+  box-sizing: border-box;
+  font-family: "Source Sans Pro";
+  font-weight: 400;
+  font-size: 18px;
+  color: #1d1f22;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 12px;
+  margin-bottom: 10px;
+  padding: 0px 5px;
+}
+
+.selectedAttribute {
+  background-color: #1d1f22;
+  color: white;
+}
+
+.swatchSelectedAttribute {
+  box-shadow: 5px 5px 5px 0px black;
+}
+
+.productInfoPrice p {
+  font-family: "Raleway";
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 46px;
+  margin: 0px;
+  margin-bottom: 20px;
+  color: #1d1f22;
+}
+
+.productInfo a button,
+.productInCart {
+  width: 100%;
+  padding: 16px 32px;
+  min-height: 52px;
+  background-color: #5ece7b;
+  font-family: "Raleway";
+  font-weight: 600;
+  font-size: 16px;
+  color: white;
+  border: 0px;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.productInfo button:hover {
+  background: #3fa35a;
+  cursor: pointer;
+}
+
+.productInfo button:active {
+  background: #3fa35a;
+  color: #1d1f22;
+}
+
+.productDescription {
+  font-family: "Roboto";
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 26px;
+  color: #1d1f22;
+}

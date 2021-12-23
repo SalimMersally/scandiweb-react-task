@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { GET_CATEGORIES, GET_PRODUCTS } from "../Queries";
 import client from "../Client";
+import "../styles/productList.css";
 
 // components
 import Product from "./Product";

@@ -1,14 +1,15 @@
 import React, { Component } from "react";
 import { GET_CURRENCIES } from "../Queries";
 import client from "../Client";
+import "../styles/navbar.css";
 
 // Components
 import MiniCart from "./MiniCart";
 
 // Icons
-import Logo from "../Icons/Logo";
-import UpArrow from "../Icons/UpArrow";
-import DownArrow from "../Icons/DownArrow";
+import Logo from "../icons/Logo";
+import UpArrow from "../icons/UpArrow";
+import DownArrow from "../icons/DownArrow";
 
 export class Navbar extends Component {
   constructor(props) {
