@@ -23,6 +23,15 @@ export class App extends Component {
     });
   };
 
+  addToCart = (product) => {
+    this.setState((prev) => {
+      let productToAdd = { product, quantity: 1 };
+      let cart = [...prev.cart];
+      cart.push(productToAdd);
+      return { ...prev, cart };
+    });
+  };
+
   render() {
     return (
       <Router>
@@ -35,12 +44,16 @@ export class App extends Component {
           ></Route>
           <Route
             path="/product/:productID"
-            element={<ProductDescription currency={this.state.currency} />}
+            element={
+              <ProductDescription
+                currency={this.state.currency}
+                addToCart={this.addToCart}
+              />
+            }
           />
           <Route
             path="/cart"
-            element={<Cart />}
-            currency={this.state.currency}
+            element={<Cart currency={this.state.currency} />}
           />
         </Routes>
       </Router>

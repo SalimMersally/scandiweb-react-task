@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import WithRouter from "./WithRouter";
 import { GET_PRODUCT } from "../Queries";
 import client from "../Client";
@@ -10,6 +11,7 @@ export class ProductDescription extends Component {
       product: {
         gallery: [],
         prices: [],
+        attributes: [],
       },
       currentImage: "",
       currentPrice: {
@@ -19,6 +21,7 @@ export class ProductDescription extends Component {
           label: "",
         },
       },
+      selectedAttribute: [],
     };
   }
 
@@ -35,7 +38,15 @@ export class ProductDescription extends Component {
           return p.currency.label === this.props.currency;
         });
         currentPrice = currentPrice[0];
-        this.setState({ product, currentImage, currentPrice });
+        const selectedAttribute = result.data.product.attributes.map(
+          (attribue) => 0
+        );
+        this.setState({
+          product,
+          currentImage,
+          currentPrice,
+          selectedAttribute,
+        });
       });
   }
 
@@ -57,6 +68,23 @@ export class ProductDescription extends Component {
     this.setState((prev) => {
       return { ...prev, currentImage };
     });
+  };
+
+  selectAttribute = (index1, index2) => {
+    let selectedAttribute = this.state.selectedAttribute;
+    selectedAttribute[index1] = index2;
+    this.setState((prev) => {
+      return { ...prev, selectedAttribute };
+    });
+  };
+
+  add = () => {
+    const attributes = this.state.product.attributes.map((attribute, index) => {
+      const items = attribute.items[this.state.selectedAttribute[index]];
+      return { ...attribute, items };
+    });
+    const product = { ...this.state.product, attributes };
+    this.props.addToCart(product);
   };
 
   render() {
@@ -83,6 +111,54 @@ export class ProductDescription extends Component {
         <div className="productInfo">
           <h1>{this.state.product.brand}</h1>
           <h2>{this.state.product.name}</h2>
+          <div className="productAttributes">
+            {this.state.product.attributes.map((attribute, index1) => {
+              return (
+                <div className="attribute" key={attribute.id}>
+                  <h2>{attribute.name}:</h2>
+                  <div className="attributeItems">
+                    {attribute.items.map((item, index2) => {
+                      let classN = "attributeItem";
+                      let style = {};
+                      if (
+                        attribute.type === "swatch" &&
+                        item.value === "#000000"
+                      ) {
+                        style = {
+                          backgroundColor: item.value,
+                          color: "white",
+                        };
+                        if (index2 === this.state.selectedAttribute[index1]) {
+                          classN += " swatchSelectedAttribute";
+                        }
+                      } else if (attribute.type === "swatch") {
+                        style = {
+                          backgroundColor: item.value,
+                        };
+                        if (index2 === this.state.selectedAttribute[index1]) {
+                          classN += " swatchSelectedAttribute";
+                        }
+                      } else {
+                        if (index2 === this.state.selectedAttribute[index1]) {
+                          classN += " selectedAttribute";
+                        }
+                      }
+                      return (
+                        <div
+                          key={item.id}
+                          className={classN}
+                          onClick={() => this.selectAttribute(index1, index2)}
+                          style={style}
+                        >
+                          {item.displayValue}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
           <div className="productInfoPrice">
             <h2>PRICE: </h2>
             <p>
@@ -91,7 +167,9 @@ export class ProductDescription extends Component {
                 this.state.currentPrice.amount}
             </p>
           </div>
-          <button>ADD TO CART</button>
+          <Link to="/">
+            <button onClick={this.add}>ADD TO CART</button>
+          </Link>
           <div
             className="productDescription"
             dangerouslySetInnerHTML={{ __html: this.state.product.description }}

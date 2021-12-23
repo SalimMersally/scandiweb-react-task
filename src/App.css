@@ -139,9 +139,8 @@ select {
 /* The below classes are all used in the Product Description Page */
 
 .productDesc {
-  margin-top: 25px;
+  margin-top: 80px;
   display: flex;
-  justify-content: space-between;
 }
 
 .imageList {
@@ -168,7 +167,7 @@ select {
 }
 
 .productInfo {
-  width: 25%;
+  width: 30%;
   margin-left: 40px;
   display: flex;
   flex-direction: column;
@@ -194,7 +193,13 @@ select {
   color: #1d1f22;
 }
 
-.productInfoPrice h2 {
+.productAttributes {
+  display: flex;
+  flex-direction: column;
+}
+
+.productInfoPrice h2,
+.attribute h2 {
   font-family: "Roboto Condensed";
   font-weight: 700;
   font-size: 18px;
@@ -202,6 +207,37 @@ select {
   margin: 0px;
   margin-bottom: 10px;
   color: #1d1f22;
+}
+
+.attributeItems {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+}
+
+.attributeItem {
+  width: 65px;
+  height: 45px;
+  border: 1px solid #1d1f22;
+  box-sizing: border-box;
+  font-family: "Source Sans Pro";
+  font-weight: 400;
+  font-size: 18px;
+  color: #1d1f22;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 12px;
+  margin-bottom: 10px;
+}
+
+.selectedAttribute {
+  background-color: #1d1f22;
+  color: white;
+}
+
+.swatchSelectedAttribute {
+  box-shadow: 5px 5px 5px 0px black;
 }
 
 .productInfoPrice p {
@@ -214,10 +250,11 @@ select {
   color: #1d1f22;
 }
 
-.productInfo button {
+.productInfo a button {
+  width: 100%;
   padding: 16px 32px;
   height: 52px;
-  background: #5ece7b;
+  background-color: #5ece7b;
   font-family: "Raleway";
   font-weight: 600;
   font-size: 16px;
