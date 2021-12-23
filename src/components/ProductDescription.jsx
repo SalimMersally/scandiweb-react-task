@@ -79,11 +79,8 @@ export class ProductDescription extends Component {
   };
 
   add = () => {
-    const attributes = this.state.product.attributes.map((attribute, index) => {
-      const items = attribute.items[this.state.selectedAttribute[index]];
-      return { ...attribute, items };
-    });
-    const product = { ...this.state.product, attributes };
+    const selectAttributes = this.state.selectedAttribute;
+    const product = { ...this.state.product, selectAttributes };
     this.props.addToCart(product);
   };
 
