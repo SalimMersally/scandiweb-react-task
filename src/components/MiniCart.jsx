@@ -53,6 +53,60 @@ export class MiniCart extends Component {
                     <h3>{item.product.brand}</h3>
                     <h3>{item.product.name}</h3>
                     <p>{price[0].currency.symbol + "" + price[0].amount}</p>
+                    <div className="miniCartAttributes">
+                      {item.product.attributes.map((attribute, index1) => {
+                        return (
+                          <div className="miniCartAttribute" key={attribute.id}>
+                            {attribute.items.map((attributeItem, index2) => {
+                              let classN = "";
+                              let style = {};
+                              if (
+                                item.product.selectAttributes[index1] === index2
+                              ) {
+                                if (attribute.type === "swatch") {
+                                  classN =
+                                    "miniCartAttributeSelectedItemSwatch miniCartAttributeItem";
+                                } else {
+                                  classN =
+                                    "miniCartAttributeSelectedItem miniCartAttributeItem";
+                                }
+                              } else {
+                                classN = "miniCartAttributeItem";
+                              }
+                              if (
+                                attribute.type === "swatch" &&
+                                attributeItem.value === "#000000"
+                              ) {
+                                style = {
+                                  backgroundColor: attributeItem.value,
+                                  color: "white",
+                                };
+                              } else if (attribute.type === "swatch") {
+                                style = {
+                                  backgroundColor: attributeItem.value,
+                                };
+                              }
+                              return (
+                                <div
+                                  key={item.id}
+                                  className={classN}
+                                  style={style}
+                                  onClick={() =>
+                                    this.props.setAttribute(
+                                      index,
+                                      index1,
+                                      index2
+                                    )
+                                  }
+                                >
+                                  {attributeItem.displayValue}
+                                </div>
+                              );
+                            })}
+                          </div>
+                        );
+                      })}
+                    </div>
                   </div>
                   <div className="miniCartItemQuantity">
                     <div

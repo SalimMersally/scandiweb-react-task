@@ -83,6 +83,7 @@ export class Navbar extends Component {
             currency={this.props.currency}
             increaseQunatity={this.props.increaseQunatity}
             decreaseQuantity={this.props.decreaseQuantity}
+            setAttribute={this.props.setAttribute}
           />
         </div>
       </nav>

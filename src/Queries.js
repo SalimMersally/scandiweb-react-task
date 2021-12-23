@@ -32,6 +32,7 @@ export const GET_PRODUCT = gql`
   query GetProduct($id: String!) {
     product(id: $id) {
       name
+      id
       inStock
       gallery
       description

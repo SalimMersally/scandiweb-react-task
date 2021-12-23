@@ -22,6 +22,7 @@ export class ProductDescription extends Component {
         },
       },
       selectedAttribute: [],
+      productInCart: false,
     };
   }
 
@@ -41,11 +42,19 @@ export class ProductDescription extends Component {
         const selectedAttribute = result.data.product.attributes.map(
           (attribue) => 0
         );
+        let productInCart = false;
+        const filtered = this.props.cart.filter((item) => {
+          return item.product.id === product.id;
+        });
+        if (filtered.length !== 0) {
+          productInCart = true;
+        }
         this.setState({
           product,
           currentImage,
           currentPrice,
           selectedAttribute,
+          productInCart,
         });
       });
   }
@@ -79,9 +88,14 @@ export class ProductDescription extends Component {
   };
 
   add = () => {
-    const selectAttributes = this.state.selectedAttribute;
-    const product = { ...this.state.product, selectAttributes };
-    this.props.addToCart(product);
+    const filtered = this.props.cart.filter((item) => {
+      return item.product.id === this.state.product.id;
+    });
+    if (filtered.length === 0) {
+      const selectAttributes = this.state.selectedAttribute;
+      const product = { ...this.state.product, selectAttributes };
+      this.props.addToCart(product);
+    }
   };
 
   render() {
@@ -164,9 +178,14 @@ export class ProductDescription extends Component {
                 this.state.currentPrice.amount}
             </p>
           </div>
-          <Link to="/">
-            <button onClick={this.add}>ADD TO CART</button>
-          </Link>
+          {this.state.productInCart ? (
+            <div className="productInCart">PRODUCT ALREADY IN CART</div>
+          ) : (
+            <Link to="/">
+              <button onClick={this.add}>ADD TO CART</button>
+            </Link>
+          )}
+
           <div
             className="productDescription"
             dangerouslySetInnerHTML={{ __html: this.state.product.description }}

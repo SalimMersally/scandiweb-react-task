@@ -54,6 +54,19 @@ export class App extends Component {
     }
   };
 
+  setAttribute = (productIndex, attributeIndex, newItemIndex) => {
+    this.setState((prev) => {
+      const cart = [...prev.cart];
+      let product = cart[productIndex].product;
+      const selectAttributes = [...product.selectAttributes];
+      selectAttributes[attributeIndex] = newItemIndex;
+      product = { ...product, selectAttributes };
+      const quantity = cart[productIndex].quantity;
+      cart[productIndex] = { product, quantity };
+      return { ...prev, cart };
+    });
+  };
+
   render() {
     return (
       <Router>
@@ -63,6 +76,7 @@ export class App extends Component {
           currency={this.state.currency}
           increaseQunatity={this.increaseQunatity}
           decreaseQuantity={this.decreaseQuantity}
+          setAttribute={this.setAttribute}
         />
         <Routes>
           <Route
@@ -76,6 +90,7 @@ export class App extends Component {
               <ProductDescription
                 currency={this.state.currency}
                 addToCart={this.addToCart}
+                cart={this.state.cart}
               />
             }
           />

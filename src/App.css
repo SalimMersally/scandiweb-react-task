@@ -165,6 +165,39 @@ nav {
   margin: 0px;
 }
 
+.miniCartAttribute {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 10px 0px;
+}
+
+.miniCartAttributeItem {
+  min-width: 24px;
+  height: 24px;
+  border: 1px solid #1d1f22;
+  box-sizing: border-box;
+  padding: 2px;
+  font-family: "Source Sans Pro";
+  font-weight: 400;
+  font-size: 12px;
+  color: #1d1f22;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 4px;
+  margin-bottom: 4px;
+  cursor: pointer;
+}
+
+.miniCartAttributeSelectedItem {
+  background-color: #1d1f22;
+  color: white;
+}
+
+.miniCartAttributeSelectedItemSwatch {
+  box-shadow: 1px 1px 5px 0px black;
+}
+
 .miniCartItemQuantity {
   width: 24px;
   height: 140px;
@@ -422,10 +455,11 @@ select {
   color: #1d1f22;
 }
 
-.productInfo a button {
+.productInfo a button,
+.productInCart {
   width: 100%;
   padding: 16px 32px;
-  height: 52px;
+  min-height: 52px;
   background-color: #5ece7b;
   font-family: "Raleway";
   font-weight: 600;
@@ -433,6 +467,8 @@ select {
   color: white;
   border: 0px;
   margin-bottom: 20px;
+  box-sizing: border-box;
+  text-align: center;
 }
 
 .productInfo button:hover {
