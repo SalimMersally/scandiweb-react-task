@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import { GET_CURRENCIES } from "../Queries";
 import client from "../Client";
 import "../styles/navbar.css";
@@ -54,7 +55,24 @@ export class Navbar extends Component {
   render() {
     return (
       <nav>
-        <div className="navButtons">Buttons</div>
+        <div className="navButtons">
+          {this.props.categories.map((category) => {
+            let classN = "";
+            if (category.name === this.props.category) {
+              classN = "navButtonSelected";
+            }
+            return (
+              <Link to="/">
+                <button
+                  className={classN + " navButton"}
+                  onClick={() => this.props.setCategory(category.name)}
+                >
+                  {category.name.toUpperCase()}
+                </button>
+              </Link>
+            );
+          })}
+        </div>
         <div className="navLogo">
           <Logo />
         </div>

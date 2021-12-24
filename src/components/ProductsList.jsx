@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { GET_CATEGORIES, GET_PRODUCTS } from "../Queries";
+import { GET_PRODUCTS } from "../Queries";
 import client from "../Client";
 import "../styles/productList.css";
 
@@ -10,8 +10,6 @@ export class ProductsList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      categories: [],
-      selectedCategory: "all",
       products: [],
     };
   }
@@ -19,20 +17,9 @@ export class ProductsList extends Component {
   componentDidMount() {
     client
       .query({
-        query: GET_CATEGORIES,
-      })
-      .then((result) =>
-        this.setState((prev) => {
-          let categories = result.data.categories;
-          let newState = { ...prev, categories };
-          return newState;
-        })
-      );
-    client
-      .query({
         query: GET_PRODUCTS,
         variables: {
-          category: this.state.selectedCategory,
+          category: this.props.category,
         },
       })
       .then((result) =>
@@ -43,13 +30,13 @@ export class ProductsList extends Component {
       );
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (this.state.selectedCategory !== prevState.selectedCategory) {
+  componentDidUpdate(prevProps) {
+    if (this.props.category !== prevProps.category) {
       client
         .query({
           query: GET_PRODUCTS,
           variables: {
-            category: this.state.selectedCategory,
+            category: this.props.category,
           },
         })
         .then((result) =>
@@ -70,16 +57,8 @@ export class ProductsList extends Component {
   render() {
     return (
       <div>
-        <div className="categories">
-          <select onChange={(e) => this.setCategory(e.target.value)}>
-            {this.state.categories.map((category, index) => {
-              return (
-                <option value={category.name} key={index}>
-                  {category.name}
-                </option>
-              );
-            })}
-          </select>
+        <div className="category">
+          Category: <span>{this.props.category.toUpperCase()}</span>
         </div>
         <div className="itemsList">
           {this.state.products.map((product) => {

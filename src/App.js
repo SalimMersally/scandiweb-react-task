@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { GET_CATEGORIES } from "./Queries";
+import client from "./Client";
 import "./App.css";
 
 // Components
@@ -14,7 +16,23 @@ export class App extends Component {
     this.state = {
       cart: [],
       currency: "",
+      categories: [],
+      category: "",
     };
+  }
+
+  componentDidMount() {
+    client
+      .query({
+        query: GET_CATEGORIES,
+      })
+      .then((result) =>
+        this.setState((prev) => {
+          const categories = result.data.categories;
+          const category = categories[0].name;
+          return { ...prev, categories, category };
+        })
+      );
   }
 
   setCurrency = (currency) => {
@@ -84,7 +102,13 @@ export class App extends Component {
       total = total + item.quantity * price[0].amount;
       symbol = price[0].currency.symbol;
     });
-    return symbol + "" + total;
+    return symbol + "" + total.toFixed(2);
+  };
+
+  setCategory = (category) => {
+    this.setState((prev) => {
+      return { ...prev, category };
+    });
   };
 
   render() {
@@ -98,11 +122,19 @@ export class App extends Component {
           decreaseQuantity={this.decreaseQuantity}
           setAttribute={this.setAttribute}
           calculateTotal={this.calculateTotal}
+          categories={this.state.categories}
+          category={this.state.category}
+          setCategory={this.setCategory}
         />
         <Routes>
           <Route
             path="/"
-            element={<ProductList currency={this.state.currency} />}
+            element={
+              <ProductList
+                currency={this.state.currency}
+                category={this.state.category}
+              />
+            }
             exact
           ></Route>
           <Route

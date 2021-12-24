@@ -166,12 +166,16 @@ export class MiniCart extends Component {
             ) : (
               ""
             )}
-            <div className="miniCartButtons">
-              <Link to="/cart" onClick={this.setShowMiniCart}>
-                <button className="viewBagButton">VIEW BAG</button>
-              </Link>
-              <button className="checkoutButton">CHECKOUT</button>
-            </div>
+            {this.props.cart.length === 0 ? (
+              ""
+            ) : (
+              <div className="miniCartButtons">
+                <Link to="/cart" onClick={this.setShowMiniCart}>
+                  <button className="viewBagButton">VIEW BAG</button>
+                </Link>
+                <button className="checkoutButton">CHECKOUT</button>
+              </div>
+            )}
           </div>
         </div>
       </div>

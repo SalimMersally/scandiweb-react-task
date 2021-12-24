@@ -1,26 +1,23 @@
 /* the bellow classes are used in the product list page */
 
-.categories option,
-.categories select {
+.category {
   font-family: "Raleway";
   font-weight: 400;
   font-size: 42px;
-  line-height: 67px;
+  margin: 80px 0;
   color: #1d1f22;
-  margin: 0px;
+  margin: 80px 0px;
 }
 
-select {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  border-width: 0px;
-  outline: 0px;
+.category span {
+  color: #5ece7b;
 }
 
 .itemsList {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+  margin-bottom: 80px;
 }
 
 .productItem img,
