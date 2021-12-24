@@ -111,6 +111,14 @@ export class App extends Component {
     });
   };
 
+  checkout = () => {
+    alert("Your order have been placed succefully!");
+    this.state((prev) => {
+      const cart = [];
+      return { ...prev, cart };
+    });
+  };
+
   render() {
     return (
       <Router>
@@ -125,6 +133,7 @@ export class App extends Component {
           categories={this.state.categories}
           category={this.state.category}
           setCategory={this.setCategory}
+          checkout={this.checkout}
         />
         <Routes>
           <Route
@@ -150,7 +159,13 @@ export class App extends Component {
           <Route
             path="/cart"
             element={
-              <Cart currency={this.state.currency} cart={this.state.cart} />
+              <Cart
+                cart={this.state.cart}
+                currency={this.state.currency}
+                increaseQunatity={this.increaseQunatity}
+                decreaseQuantity={this.decreaseQuantity}
+                setAttribute={this.setAttribute}
+              />
             }
           />
         </Routes>

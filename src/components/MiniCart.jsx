@@ -12,7 +12,6 @@ export class MiniCart extends Component {
     super(props);
     this.state = {
       showMiniCart: false,
-      total: 0,
     };
   }
 
@@ -173,7 +172,15 @@ export class MiniCart extends Component {
                 <Link to="/cart" onClick={this.setShowMiniCart}>
                   <button className="viewBagButton">VIEW BAG</button>
                 </Link>
-                <button className="checkoutButton">CHECKOUT</button>
+                <Link
+                  to="/"
+                  onClick={() => {
+                    this.setShowMiniCart();
+                    this.props.checkout();
+                  }}
+                >
+                  <button className="checkoutButton">CHECKOUT</button>
+                </Link>
               </div>
             )}
           </div>

@@ -112,6 +112,7 @@ export class Navbar extends Component {
             closeCurrencyListIfOpen={this.closeCurrencyListIfOpen}
             showCurrencyList={this.state.showCurrencyList}
             calculateTotal={this.props.calculateTotal}
+            checkout={this.props.checkout}
           />
         </div>
       </nav>
