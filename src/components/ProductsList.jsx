@@ -44,7 +44,8 @@ export class ProductsList extends Component {
             let products = result.data.category.products;
             return { ...prev, products };
           })
-        );
+        )
+        .catch((error) => console.log(error));
     }
   }
 

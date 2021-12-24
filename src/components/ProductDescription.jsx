@@ -57,7 +57,8 @@ export class ProductDescription extends Component {
           selectedAttribute,
           productInCart,
         });
-      });
+      })
+      .catch((error) => console.log(error));
   }
 
   componentDidUpdate(prevProp) {

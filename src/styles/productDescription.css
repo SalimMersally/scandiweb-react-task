@@ -94,6 +94,10 @@
   padding: 0px 5px;
 }
 
+.attributeItem:hover {
+  cursor: pointer;
+}
+
 .selectedAttribute {
   background-color: #1d1f22;
   color: white;

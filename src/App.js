@@ -32,7 +32,8 @@ export class App extends Component {
           const category = categories[0].name;
           return { ...prev, categories, category };
         })
-      );
+      )
+      .catch((error) => console.log(error));
   }
 
   setCurrency = (currency) => {

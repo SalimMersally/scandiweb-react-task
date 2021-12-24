@@ -23,14 +23,17 @@ export class Navbar extends Component {
   }
 
   componentDidMount() {
-    client.query({ query: GET_CURRENCIES }).then((result) =>
-      this.setState((prev) => {
-        const currencies = result.data.currencies;
-        const currentCurrency = currencies[0].symbol;
-        this.props.setCurrency(currencies[0].label);
-        return { ...prev, currencies, currentCurrency };
-      })
-    );
+    client
+      .query({ query: GET_CURRENCIES })
+      .then((result) =>
+        this.setState((prev) => {
+          const currencies = result.data.currencies;
+          const currentCurrency = currencies[0].symbol;
+          this.props.setCurrency(currencies[0].label);
+          return { ...prev, currencies, currentCurrency };
+        })
+      )
+      .catch((error) => console.log(error));
   }
 
   setCurrentCurrency = (currentCurrency) => {
@@ -62,7 +65,7 @@ export class Navbar extends Component {
               classN = "navButtonSelected";
             }
             return (
-              <Link to="/">
+              <Link to="/" key={category.name}>
                 <button
                   className={classN + " navButton"}
                   onClick={() => this.props.setCategory(category.name)}
