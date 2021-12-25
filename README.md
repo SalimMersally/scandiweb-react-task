@@ -1,70 +1,45 @@
-# Getting Started with Create React App
+# A online shop application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is an online shop application made using React (with class component) for frontend, and graphQL for backend.
+Apollo client was used to link the frontend to backend.
+react-router-dom was used for routing
 
-## Available Scripts
+The graphQL endpoint is available at: https://github.com/scandiweb/junior-react-endpoint
 
-In the project directory, you can run:
+## Run the app
 
 ### `npm start`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
+The page will reload when you make changes.
 You may also see any lint errors in the console.
 
-### `npm test`
+## Directories
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+All react code is available in the src folder as follow:
 
-### `npm run build`
+### Components
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+All components used in the application (all have .jsx extension and are class components)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Icons
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+All icons used in the application in SVG format. For simplicity in the main code, they are separeted in components alone to be used anywhere.
 
-### `npm run eject`
+### Styles
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Styles used in the components, they are seprated in different file for simplicity and better understanding of the design.
+Almost each component have it is corresponding css style file
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### App.js
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+All main components are exported here, App.js also include the globale state with function to change it.
+The Golbale state with the functions are provided as props.
+React router dom is used here.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Client.js and Queries.js
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+The Apollo client is difined in Client.js to be used anywhere in the code when we need to fetch data.
+All queries are placed in Queries.js to simpify and make the code more cleaner, and also to be able to used them anywhere needed.

@@ -7,6 +7,7 @@ import CartIcon from "../icons/CartIcon";
 export class Product extends Component {
   render() {
     const { product } = this.props;
+    // filter the current price from the prices array
     const price = product.prices.filter((p) => {
       return p.currency.label === this.props.currency;
     });

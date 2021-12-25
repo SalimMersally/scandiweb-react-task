@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+
+// Styles
 import "../styles/cart.css";
 
 // Icons
@@ -15,6 +17,11 @@ export class Cart extends Component {
     };
   }
 
+  // this component is very simillar to miniCart
+  // we don't have here the total price and the buttons
+  // also we can here change the image displayed
+
+  // by default we display the first image for all items
   componentDidMount() {
     this.setState((prev) => {
       const currentImage = this.props.cart.map((item) => {
@@ -35,6 +42,8 @@ export class Cart extends Component {
     }
   }
 
+  // go the next image of item at cart[index]
+  // if this is the last image go back to the first
   nextImage = (index) => {
     if (
       this.state.currentImage[index] <
@@ -54,6 +63,8 @@ export class Cart extends Component {
     }
   };
 
+  // go the the previous image of item at cart[index]
+  // if this is the first go the last item
   prevImage = (index) => {
     if (this.state.currentImage[index] > 0) {
       this.setState((prev) => {

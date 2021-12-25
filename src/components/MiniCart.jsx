@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+
+// Styles
 import "../styles/minicart.css";
 
 // Icons
@@ -15,6 +17,8 @@ export class MiniCart extends Component {
     };
   }
 
+  // if state change meaning we want to open or close the miniCart
+  // we change the body style to unallow scrolling
   componentDidUpdate(prevProp) {
     if (this.state.showMiniCart) {
       document.body.style.position = "fixed";
@@ -25,6 +29,8 @@ export class MiniCart extends Component {
       document.body.style.position = "static";
       document.body.style.overflowY = "auto";
     }
+    // if the currency list open while the miniCart is open
+    // we close the miniCart
     if (this.state.showMiniCart && this.props.showCurrencyList) {
       const showMiniCart = !this.state.showMiniCart;
       this.setState((prev) => {
@@ -33,11 +39,13 @@ export class MiniCart extends Component {
     }
   }
 
+  // open and close miniCart
   setShowMiniCart = () => {
     const showMiniCart = !this.state.showMiniCart;
     this.setState((prev) => {
       return { ...prev, showMiniCart };
     });
+    // Close the currency list if it is open
     this.props.closeCurrencyListIfOpen();
   };
 
@@ -46,11 +54,14 @@ export class MiniCart extends Component {
       <div className="navCart">
         <div className="cartIcon" onClick={this.setShowMiniCart}>
           <CartIcon />
-          {this.props.cart.length === 0 ? (
-            ""
-          ) : (
-            <div className="cartLength">{this.props.cart.length}</div>
-          )}
+          {
+            // show the number of items over the cart icon only if there is itmes
+            this.props.cart.length === 0 ? (
+              ""
+            ) : (
+              <div className="cartLength">{this.props.cart.length}</div>
+            )
+          }
         </div>
         <div
           className="miniCart"
@@ -66,95 +77,106 @@ export class MiniCart extends Component {
             ) : (
               ""
             )}
-            {this.props.cart.map((item, index) => {
-              let price = item.product.prices.filter((p) => {
-                return p.currency.label === this.props.currency;
-              });
-              return (
-                <div className="miniCartItem" key={item.product.id}>
-                  <div className="miniCartItemInfo">
-                    <h3>{item.product.brand}</h3>
-                    <h3>{item.product.name}</h3>
-                    <p>{price[0].currency.symbol + "" + price[0].amount}</p>
-                    <div className="miniCartAttributes">
-                      {item.product.attributes.map((attribute, index1) => {
-                        return (
-                          <div className="miniCartAttribute" key={attribute.id}>
-                            {attribute.items.map((attributeItem, index2) => {
-                              let classN = "";
-                              let style = {};
-                              if (
-                                item.product.selectAttributes[index1] === index2
-                              ) {
-                                if (attribute.type === "swatch") {
-                                  classN =
-                                    "miniCartAttributeSelectedItemSwatch miniCartAttributeItem";
-                                } else {
-                                  classN =
-                                    "miniCartAttributeSelectedItem miniCartAttributeItem";
-                                }
-                              } else {
-                                classN = "miniCartAttributeItem";
-                              }
-                              if (
-                                attribute.type === "swatch" &&
-                                attributeItem.value === "#000000"
-                              ) {
-                                style = {
-                                  backgroundColor: attributeItem.value,
-                                  color: "white",
-                                };
-                              } else if (attribute.type === "swatch") {
-                                style = {
-                                  backgroundColor: attributeItem.value,
-                                };
-                              }
-                              return (
-                                <div
-                                  key={index2}
-                                  className={classN}
-                                  style={style}
-                                  onClick={() =>
-                                    this.props.setAttribute(
-                                      index,
-                                      index1,
-                                      index2
-                                    )
+            {
+              // show all items in cart
+              this.props.cart.map((item, index) => {
+                let price = item.product.prices.filter((p) => {
+                  return p.currency.label === this.props.currency;
+                });
+                return (
+                  <div className="miniCartItem" key={item.product.id}>
+                    <div className="miniCartItemInfo">
+                      <h3>{item.product.brand}</h3>
+                      <h3>{item.product.name}</h3>
+                      <p>{price[0].currency.symbol + "" + price[0].amount}</p>
+                      <div className="miniCartAttributes">
+                        {item.product.attributes.map((attribute, index1) => {
+                          return (
+                            <div
+                              className="miniCartAttribute"
+                              key={attribute.id}
+                            >
+                              {attribute.items.map((attributeItem, index2) => {
+                                let classN = "";
+                                let style = {};
+                                if (
+                                  item.product.selectAttributes[index1] ===
+                                  index2
+                                ) {
+                                  if (attribute.type === "swatch") {
+                                    classN =
+                                      "miniCartAttributeSelectedItemSwatch miniCartAttributeItem";
+                                  } else {
+                                    classN =
+                                      "miniCartAttributeSelectedItem miniCartAttributeItem";
                                   }
-                                >
-                                  {attributeItem.displayValue}
-                                </div>
-                              );
-                            })}
-                          </div>
-                        );
-                      })}
+                                } else {
+                                  classN = "miniCartAttributeItem";
+                                }
+                                if (
+                                  attribute.type === "swatch" &&
+                                  attributeItem.value === "#000000"
+                                ) {
+                                  style = {
+                                    backgroundColor: attributeItem.value,
+                                    color: "white",
+                                  };
+                                } else if (attribute.type === "swatch") {
+                                  style = {
+                                    backgroundColor: attributeItem.value,
+                                  };
+                                }
+                                return (
+                                  <div
+                                    key={index2}
+                                    className={classN}
+                                    style={style}
+                                    onClick={() =>
+                                      // this function is provided by App.js
+                                      // index is the index of item in cart
+                                      // index1 is the index of attribute of this product
+                                      // index2 is the selected item in the attribute array
+                                      this.props.setAttribute(
+                                        index,
+                                        index1,
+                                        index2
+                                      )
+                                    }
+                                  >
+                                    {attributeItem.displayValue}
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                    <div className="miniCartItemQuantity">
+                      <div
+                        className="miniCartItemQuantityBox"
+                        onClick={() => this.props.increaseQunatity(index)}
+                      >
+                        <PlusIcon />
+                      </div>
+                      <p>{item.quantity}</p>
+                      <div
+                        className="miniCartItemQuantityBox"
+                        onClick={() => this.props.decreaseQuantity(index)}
+                      >
+                        <MinusIcon />
+                      </div>
+                    </div>
+                    <div className="miniCartItemImage">
+                      <img
+                        src={item.product.gallery[0]}
+                        alt={item.product.name}
+                      />
                     </div>
                   </div>
-                  <div className="miniCartItemQuantity">
-                    <div
-                      className="miniCartItemQuantityBox"
-                      onClick={() => this.props.increaseQunatity(index)}
-                    >
-                      <PlusIcon />
-                    </div>
-                    <p>{item.quantity}</p>
-                    <div
-                      className="miniCartItemQuantityBox"
-                      onClick={() => this.props.decreaseQuantity(index)}
-                    >
-                      <MinusIcon />
-                    </div>
-                  </div>
-                  <div className="miniCartItemImage">
-                    <img
-                      src={item.product.gallery[0]}
-                      alt={item.product.name}
-                    />
-                  </div>
-                </div>
-              );
-            })}
+                );
+              })
+            }
             {this.props.cart.length > 0 ? (
               <div className="miniCartTotal">
                 <p>Total</p>

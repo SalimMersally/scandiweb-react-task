@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+
+// Queries
 import { GET_CURRENCIES } from "../Queries";
 import client from "../Client";
+
+// Styles
 import "../styles/navbar.css";
 
 // Components
@@ -16,12 +20,14 @@ export class Navbar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currencies: [],
-      currentCurrency: "",
+      currencies: [], // the fetched currencies list
+      currentCurrency: "", // the select currency symbole
       showCurrencyList: false,
     };
   }
 
+  // on mount we fetch all the currency and put them in the state
+  // we set the first one as the selected currency at the start
   componentDidMount() {
     client
       .query({ query: GET_CURRENCIES })
@@ -36,12 +42,14 @@ export class Navbar extends Component {
       .catch((error) => console.log(error));
   }
 
+  // set a new current currency by the user
   setCurrentCurrency = (currentCurrency) => {
     this.setState((prev) => {
       return { ...prev, currentCurrency };
     });
   };
 
+  // on click show the currency list
   setShowCurrencyList = () => {
     const showCurrencyList = !this.state.showCurrencyList;
     this.setState((prev) => {
@@ -49,6 +57,8 @@ export class Navbar extends Component {
     });
   };
 
+  // this is used when the user open the mini cart
+  // the currency list is open it should be closed
   closeCurrencyListIfOpen = () => {
     if (this.state.showCurrencyList === true) {
       this.setShowCurrencyList();
@@ -59,22 +69,29 @@ export class Navbar extends Component {
     return (
       <nav>
         <div className="navButtons">
-          {this.props.categories.map((category) => {
-            let classN = "";
-            if (category.name === this.props.category) {
-              classN = "navButtonSelected";
-            }
-            return (
-              <Link to="/" key={category.name}>
-                <button
-                  className={classN + " navButton"}
-                  onClick={() => this.props.setCategory(category.name)}
-                >
-                  {category.name.toUpperCase()}
-                </button>
-              </Link>
-            );
-          })}
+          {
+            // map the categories fetch in App.js to show them as buttons
+            this.props.categories.map((category) => {
+              let classN = "";
+              // check the selected one to show it in different style
+              if (category.name === this.props.category) {
+                classN = "navButtonSelected";
+              }
+              // when a user click on a button it become the selected one
+              // the set category is provided by App.js
+              // it also take him to the home page if he is not there
+              return (
+                <Link to="/" key={category.name}>
+                  <button
+                    className={classN + " navButton"}
+                    onClick={() => this.props.setCategory(category.name)}
+                  >
+                    {category.name.toUpperCase()}
+                  </button>
+                </Link>
+              );
+            })
+          }
         </div>
         <div className="navLogo">
           <Logo />
@@ -89,21 +106,24 @@ export class Navbar extends Component {
               className="selectList"
               style={this.state.showCurrencyList ? {} : { display: "none" }}
             >
-              {this.state.currencies.map((currency, index) => {
-                return (
-                  <div
-                    className="option"
-                    key={index}
-                    onClick={() => {
-                      this.setShowCurrencyList();
-                      this.setCurrentCurrency(currency.symbol);
-                      this.props.setCurrency(currency.label);
-                    }}
-                  >
-                    {currency.symbol + " " + currency.label}
-                  </div>
-                );
-              })}
+              {
+                // make the list based on the currencies fetched
+                this.state.currencies.map((currency, index) => {
+                  return (
+                    <div
+                      className="option"
+                      key={index}
+                      onClick={() => {
+                        this.setShowCurrencyList(); // close the list
+                        this.setCurrentCurrency(currency.symbol); // change the selected currency symbol in state
+                        this.props.setCurrency(currency.label); // change selected currency in App.js
+                      }}
+                    >
+                      {currency.symbol + " " + currency.label}
+                    </div>
+                  );
+                })
+              }
             </div>
           </div>
           <MiniCart

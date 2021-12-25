@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+
+// Queries
 import { GET_CATEGORIES } from "./Queries";
 import client from "./Client";
+
+// Styles
 import "./App.css";
 
 // Components
@@ -13,6 +17,9 @@ import Cart from "./components/Cart";
 export class App extends Component {
   constructor(props) {
     super(props);
+    // the state of App.js is like a globale state to the application
+    // different part are provided to differen component based on need
+    // changed it in other component is done by function made here and provided as props
     this.state = {
       cart: [],
       currency: "",
@@ -21,6 +28,7 @@ export class App extends Component {
     };
   }
 
+  // on mount get all categories and put them in state
   componentDidMount() {
     client
       .query({
@@ -36,12 +44,16 @@ export class App extends Component {
       .catch((error) => console.log(error));
   }
 
+  // set the currency label
   setCurrency = (currency) => {
     this.setState((prev) => {
       return { ...prev, currency };
     });
   };
 
+  // add a product to cart
+  // the product contains the selectedAttributes
+  // the default quantity is 1 at the start
   addToCart = (product) => {
     this.setState((prev) => {
       const productToAdd = { product, quantity: 1 };
@@ -51,6 +63,7 @@ export class App extends Component {
     });
   };
 
+  // increase the quantity of the prduct at index
   increaseQunatity = (index) => {
     this.setState((prev) => {
       const cart = [...prev.cart];
@@ -61,6 +74,8 @@ export class App extends Component {
     });
   };
 
+  // decrease the quantity of the product at index
+  // if it is 1, we remove the product completely
   decreaseQuantity = (index) => {
     if (this.state.cart[index].quantity > 1) {
       this.setState((prev) => {
@@ -80,6 +95,9 @@ export class App extends Component {
     }
   };
 
+  // change the selectedAttrivute of product in cart at productIndex
+  // the attribute to change is at attributeIndex in attributes array
+  // the new selected attribute is at newItemIndex in items array
   setAttribute = (productIndex, attributeIndex, newItemIndex) => {
     this.setState((prev) => {
       const cart = [...prev.cart];
@@ -93,6 +111,7 @@ export class App extends Component {
     });
   };
 
+  // calculte the total price based on the current currency and quantities
   calculateTotal = () => {
     let total = 0;
     let symbol = "";
@@ -106,14 +125,16 @@ export class App extends Component {
     return symbol + "" + total.toFixed(2);
   };
 
+  // set category in product list page
   setCategory = (category) => {
     this.setState((prev) => {
       return { ...prev, category };
     });
   };
 
+  // checkout is by clearing the cart and alerting the user of successfull purchase
   checkout = () => {
-    alert("Your order have been placed succefully!");
+    alert("Your order have been placed successfully!");
     this.state((prev) => {
       const cart = [];
       return { ...prev, cart };

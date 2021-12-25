@@ -1,6 +1,10 @@
 import React, { Component } from "react";
+
+//Queries
 import { GET_PRODUCTS } from "../Queries";
 import client from "../Client";
+
+// Styles
 import "../styles/productList.css";
 
 // components
@@ -9,11 +13,13 @@ import Product from "./Product";
 export class ProductsList extends Component {
   constructor(props) {
     super(props);
+    // products is an array with all product fetched
     this.state = {
       products: [],
     };
   }
 
+  // fetch all product on mount based on the prop provided
   componentDidMount() {
     client
       .query({
@@ -30,6 +36,8 @@ export class ProductsList extends Component {
       );
   }
 
+  // refetch all the products if prop changed
+  // meaning user changed the category
   componentDidUpdate(prevProps) {
     if (this.props.category !== prevProps.category) {
       client
@@ -48,12 +56,6 @@ export class ProductsList extends Component {
         .catch((error) => console.log(error));
     }
   }
-
-  setCategory = (selectedCategory) => {
-    this.setState((prev) => {
-      return { ...prev, selectedCategory };
-    });
-  };
 
   render() {
     return (

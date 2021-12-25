@@ -1,8 +1,12 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import WithRouter from "./WithRouter";
+
+// Queries
 import { GET_PRODUCT } from "../Queries";
 import client from "../Client";
+
+// Styles
 import "../styles/productDescription.css";
 
 export class ProductDescription extends Component {
@@ -10,23 +14,29 @@ export class ProductDescription extends Component {
     super(props);
     this.state = {
       product: {
-        gallery: [],
-        prices: [],
-        attributes: [],
+        // the product fetch based on the params in url
+        gallery: [], // arrays of product images' url
+        prices: [], // arrays of product prices in different currencies
+        attributes: [], // arrays of product attributes
       },
-      currentImage: "",
+      currentImage: "", // the current select image url
       currentPrice: {
+        // the current price mapped from the prices array based on prop
         amount: "",
         currency: {
           Symbol: "",
           label: "",
         },
       },
-      selectedAttribute: [],
+      selectedAttribute: [], // the index of the selected attributes
       productInCart: false,
     };
   }
 
+  // fetch the product based on the param in url
+  // select price based on the prop by mapping prices array
+  // select the first attribute (mapped is used to set 0 based on attributes lenght)
+  // check if product is in cart by filtering on id
   componentDidMount() {
     client
       .query({
@@ -61,6 +71,9 @@ export class ProductDescription extends Component {
       .catch((error) => console.log(error));
   }
 
+  // if currency props changed we update the selected currency in the state
+  // if cart props changed and the item was in the cart and then removed
+  // we changed the boolean value in state
   componentDidUpdate(prevProp) {
     if (this.props.currency !== prevProp.currency) {
       let currentPrice = this.state.product.prices.filter((p) => {
@@ -87,12 +100,17 @@ export class ProductDescription extends Component {
     }
   }
 
+  // change the current image url
   setImage = (currentImage) => {
     this.setState((prev) => {
       return { ...prev, currentImage };
     });
   };
 
+  // select and attribute from the attribute array
+  // index 1 is the attribute index, since we might have multiple attribute
+  // index 2 is the index of the selected item of an attribute
+  // selected attribute is an array of index2 placed at index1
   selectAttribute = (index1, index2) => {
     let selectedAttribute = this.state.selectedAttribute;
     selectedAttribute[index1] = index2;
@@ -101,15 +119,12 @@ export class ProductDescription extends Component {
     });
   };
 
+  // add product to cart with selected attributes
+  // function addToCart is provided from App.js
   add = () => {
-    const filtered = this.props.cart.filter((item) => {
-      return item.product.id === this.state.product.id;
-    });
-    if (filtered.length === 0) {
-      const selectAttributes = this.state.selectedAttribute;
-      const product = { ...this.state.product, selectAttributes };
-      this.props.addToCart(product);
-    }
+    const selectAttributes = this.state.selectedAttribute;
+    const product = { ...this.state.product, selectAttributes };
+    this.props.addToCart(product);
   };
 
   render() {
@@ -137,6 +152,7 @@ export class ProductDescription extends Component {
           <h1>{this.state.product.brand}</h1>
           <h2>{this.state.product.name}</h2>
           <div className="productAttributes">
+            {/* We have an attributes array with each attribute having an items array */}
             {this.state.product.attributes.map((attribute, index1) => {
               return (
                 <div className="attribute" key={attribute.id}>
@@ -145,26 +161,25 @@ export class ProductDescription extends Component {
                     {attribute.items.map((item, index2) => {
                       let classN = "attributeItem";
                       let style = {};
+                      // check if it is swatch to style it different based on the color
                       if (
                         attribute.type === "swatch" &&
                         item.value === "#000000"
                       ) {
                         style = {
                           backgroundColor: item.value,
-                          color: "white",
+                          color: "white", // set it white to see the text
                         };
-                        if (index2 === this.state.selectedAttribute[index1]) {
-                          classN += " swatchSelectedAttribute";
-                        }
                       } else if (attribute.type === "swatch") {
                         style = {
-                          backgroundColor: item.value,
+                          backgroundColor: item.value, // else we can have black text
                         };
-                        if (index2 === this.state.selectedAttribute[index1]) {
+                      }
+                      // check if this is the selected one to change it is style
+                      if (index2 === this.state.selectedAttribute[index1]) {
+                        if (attribute.type === "swatch") {
                           classN += " swatchSelectedAttribute";
-                        }
-                      } else {
-                        if (index2 === this.state.selectedAttribute[index1]) {
+                        } else {
                           classN += " selectedAttribute";
                         }
                       }
@@ -193,13 +208,14 @@ export class ProductDescription extends Component {
             </p>
           </div>
           {this.state.productInCart ? (
+            // if product is already in cart we don't want to added again
             <div className="productInCart">PRODUCT ALREADY IN CART</div>
           ) : (
+            // if the item is added to cart, we go back to product list page
             <Link to="/">
               <button onClick={this.add}>ADD TO CART</button>
             </Link>
           )}
-
           <div
             className="productDescription"
             dangerouslySetInnerHTML={{ __html: this.state.product.description }}
