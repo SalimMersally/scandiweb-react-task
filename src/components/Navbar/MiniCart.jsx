@@ -2,12 +2,12 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
 // Styles
-import "../styles/minicart.css";
+import "../../styles/minicart.css";
 
 // Icons
-import CartIcon from "../icons/CartIcon";
-import PlusIcon from "../icons/PlusIcon";
-import MinusIcon from "../icons/MinusIcon";
+import CartIcon from "../../icons/CartIcon";
+import PlusIcon from "../../icons/PlusIcon";
+import MinusIcon from "../../icons/MinusIcon";
 
 export class MiniCart extends Component {
   constructor(props) {

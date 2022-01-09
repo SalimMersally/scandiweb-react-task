@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import WithRouter from "./WithRouter";
+import WithRouter from "../WithRouter";
 
 // Queries
-import { GET_PRODUCT } from "../Queries";
-import client from "../Client";
+import { GET_PRODUCT } from "../../Queries";
+import client from "../../Client";
 
 // Styles
-import "../styles/productDescription.css";
+import "../../styles/productDescription.css";
 
 export class ProductDescription extends Component {
   constructor(props) {

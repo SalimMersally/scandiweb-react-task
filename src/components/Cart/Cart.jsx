@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 
 // Styles
-import "../styles/cart.css";
+import "../../styles/cart.css";
 
 // Icons
-import PlusIcon from "../icons/PlusIcon";
-import MinusIcon from "../icons/MinusIcon";
-import RightArrow from "../icons/RightArrow";
-import LeftArrow from "../icons/LeftArrow";
+import PlusIcon from "../../icons/PlusIcon";
+import MinusIcon from "../../icons/MinusIcon";
+import RightArrow from "../../icons/RightArrow";
+import LeftArrow from "../../icons/LeftArrow";
 
 export class Cart extends Component {
   constructor(props) {

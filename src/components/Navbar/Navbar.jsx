@@ -2,19 +2,19 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
 // Queries
-import { GET_CURRENCIES } from "../Queries";
-import client from "../Client";
+import { GET_CURRENCIES } from "../../Queries";
+import client from "../../Client";
 
 // Styles
-import "../styles/navbar.css";
+import "../../styles/navbar.css";
 
 // Components
 import MiniCart from "./MiniCart";
 
 // Icons
-import Logo from "../icons/Logo";
-import UpArrow from "../icons/UpArrow";
-import DownArrow from "../icons/DownArrow";
+import Logo from "../../icons/Logo";
+import UpArrow from "../../icons/UpArrow";
+import DownArrow from "../../icons/DownArrow";
 
 export class Navbar extends Component {
   constructor(props) {

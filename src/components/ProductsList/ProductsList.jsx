@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 
 //Queries
-import { GET_PRODUCTS } from "../Queries";
-import client from "../Client";
+import { GET_PRODUCTS } from "../../Queries";
+import client from "../../Client";
 
 // Styles
-import "../styles/productList.css";
+import "../../styles/productList.css";
 
 // components
 import Product from "./Product";
@@ -33,7 +33,8 @@ export class ProductsList extends Component {
           let products = result.data.category.products;
           return { ...prev, products };
         })
-      );
+      )
+      .catch((error) => console.log(error));
   }
 
   // refetch all the products if prop changed
