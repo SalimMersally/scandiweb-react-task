@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 
 // Styles
 import "../../styles/navbar.css";
 
 // Components
-import MiniCart from "./MiniCart";
+import NavButtons from "./NavButtons";
 import CurrenciesList from "./CurrenciesList";
+import MiniCart from "./MiniCart";
 
 // Icons
 import Logo from "../../icons/Logo";
@@ -15,31 +15,11 @@ export class Navbar extends Component {
   render() {
     return (
       <nav>
-        <div className="navButtons">
-          {
-            // map the categories fetch in App.js to show them as buttons
-            this.props.categories.map((category) => {
-              let classN = "";
-              // check the selected one to show it in different style
-              if (category.name === this.props.category) {
-                classN = "navButtonSelected";
-              }
-              // when a user click on a button it become the selected one
-              // the set category is provided by App.js
-              // it also take him to the home page if he is not there
-              return (
-                <Link to="/" key={category.name}>
-                  <button
-                    className={classN + " navButton"}
-                    onClick={() => this.props.setCategory(category.name)}
-                  >
-                    {category.name.toUpperCase()}
-                  </button>
-                </Link>
-              );
-            })
-          }
-        </div>
+        <NavButtons
+          category={this.props.category}
+          categories={this.props.categories}
+          setCategory={this.props.setCategory}
+        />
         <div className="navLogo">
           <Logo />
         </div>

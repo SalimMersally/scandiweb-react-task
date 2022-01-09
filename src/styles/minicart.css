@@ -113,6 +113,15 @@
   margin: 0px;
 }
 
+.miniCartAttributeName {
+  font-family: "Roboto Condensed";
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 16px;
+  margin: 5px 0px;
+  color: #1d1f22;
+}
+
 .miniCartAttribute {
   display: flex;
   flex-wrap: wrap;
@@ -134,7 +143,6 @@
   justify-content: center;
   margin-right: 4px;
   margin-bottom: 4px;
-  cursor: pointer;
 }
 
 .miniCartAttributeSelectedItem {
