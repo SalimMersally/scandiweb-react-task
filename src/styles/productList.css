@@ -14,9 +14,9 @@
 }
 
 .itemsList {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
+  display: grid;
+  justify-content: space-between;
+  grid-template-columns: repeat(auto-fit, 320px);
   margin-bottom: 80px;
 }
 
