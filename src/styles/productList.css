@@ -16,7 +16,7 @@
 .itemsList {
   display: grid;
   justify-content: space-between;
-  grid-template-columns: repeat(auto-fit, 320px);
+  grid-template-columns: repeat(auto-fill, 320px);
   margin-bottom: 80px;
 }
 
