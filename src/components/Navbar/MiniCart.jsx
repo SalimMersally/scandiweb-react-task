@@ -15,6 +15,13 @@ export class MiniCart extends Component {
     this.state = {
       showMiniCart: false,
     };
+    // reference of this component
+    this.ref = React.createRef();
+  }
+
+  // we add an event listener to the document to check for outside clicks
+  componentDidMount() {
+    document.addEventListener("click", this.handleClickOutside.bind(this));
   }
 
   // if state change meaning we want to open or close the miniCart
@@ -29,14 +36,11 @@ export class MiniCart extends Component {
       document.body.style.position = "static";
       document.body.style.overflowY = "auto";
     }
-    // if the currency list open while the miniCart is open
-    // we close the miniCart
-    if (this.state.showMiniCart && this.props.showCurrencyList) {
-      const showMiniCart = !this.state.showMiniCart;
-      this.setState((prev) => {
-        return { ...prev, showMiniCart };
-      });
-    }
+  }
+
+  // remove event listener
+  componentWillUnmount() {
+    document.removeEventListener("click", this.handleClickOutside.bind(this));
   }
 
   // open and close miniCart
@@ -45,29 +49,37 @@ export class MiniCart extends Component {
     this.setState((prev) => {
       return { ...prev, showMiniCart };
     });
-    // Close the currency list if it is open
-    this.props.closeCurrencyListIfOpen();
   };
+
+  // if the user click and the click is outside
+  // and the currency list is shown, we close it
+  handleClickOutside(event) {
+    if (this.ref.current && !this.ref.current.contains(event.target)) {
+      if (this.state.showMiniCart) {
+        this.setShowMiniCart();
+      }
+    }
+  }
 
   render() {
     return (
-      <div className="navCart">
-        <div className="cartIcon" onClick={this.setShowMiniCart}>
-          <CartIcon />
-          {
-            // show the number of items over the cart icon only if there is itmes
-            this.props.cart.length === 0 ? (
-              ""
-            ) : (
-              <div className="cartLength">{this.props.cart.length}</div>
-            )
-          }
-        </div>
+      <>
         <div
-          className="miniCart"
-          style={this.state.showMiniCart ? { display: "block" } : {}}
-        >
-          <div className="miniCartContent">
+          className={this.state.showMiniCart ? "miniCartBack" : "hide"}
+        ></div>
+        <div className="navCart" ref={this.ref}>
+          <div className="cartIcon" onClick={this.setShowMiniCart}>
+            <CartIcon />
+            {
+              // show the number of items over the cart icon only if there is itmes
+              this.props.cart.length === 0 ? (
+                ""
+              ) : (
+                <div className="cartLength">{this.props.cart.length}</div>
+              )
+            }
+          </div>
+          <div className={this.state.showMiniCart ? "miniCartContent" : "hide"}>
             <div className="miniCartHeader">
               <h1>My Bag.&nbsp;</h1>
               <h2>{this.props.cart.length + " items"}</h2>
@@ -207,7 +219,7 @@ export class MiniCart extends Component {
             )}
           </div>
         </div>
-      </div>
+      </>
     );
   }
 }
