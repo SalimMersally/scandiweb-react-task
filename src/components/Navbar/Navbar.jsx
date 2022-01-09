@@ -1,70 +1,17 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
-// Queries
-import { GET_CURRENCIES } from "../../Queries";
-import client from "../../Client";
-
 // Styles
 import "../../styles/navbar.css";
 
 // Components
 import MiniCart from "./MiniCart";
+import CurrenciesList from "./CurrenciesList";
 
 // Icons
 import Logo from "../../icons/Logo";
-import UpArrow from "../../icons/UpArrow";
-import DownArrow from "../../icons/DownArrow";
 
 export class Navbar extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      currencies: [], // the fetched currencies list
-      currentCurrency: "", // the select currency symbole
-      showCurrencyList: false,
-    };
-  }
-
-  // on mount we fetch all the currency and put them in the state
-  // we set the first one as the selected currency at the start
-  componentDidMount() {
-    client
-      .query({ query: GET_CURRENCIES })
-      .then((result) =>
-        this.setState((prev) => {
-          const currencies = result.data.currencies;
-          const currentCurrency = currencies[0].symbol;
-          this.props.setCurrency(currencies[0].label);
-          return { ...prev, currencies, currentCurrency };
-        })
-      )
-      .catch((error) => console.log(error));
-  }
-
-  // set a new current currency by the user
-  setCurrentCurrency = (currentCurrency) => {
-    this.setState((prev) => {
-      return { ...prev, currentCurrency };
-    });
-  };
-
-  // on click show the currency list
-  setShowCurrencyList = () => {
-    const showCurrencyList = !this.state.showCurrencyList;
-    this.setState((prev) => {
-      return { ...prev, showCurrencyList };
-    });
-  };
-
-  // this is used when the user open the mini cart
-  // the currency list is open it should be closed
-  closeCurrencyListIfOpen = () => {
-    if (this.state.showCurrencyList === true) {
-      this.setShowCurrencyList();
-    }
-  };
-
   render() {
     return (
       <nav>
@@ -97,35 +44,7 @@ export class Navbar extends Component {
           <Logo />
         </div>
         <div className="navSelect">
-          <div className="select">
-            <div className="selectedOption" onClick={this.setShowCurrencyList}>
-              <p>{this.state.currentCurrency}</p>
-              {this.state.showCurrencyList ? <UpArrow /> : <DownArrow />}
-            </div>
-            <div
-              className="selectList"
-              style={this.state.showCurrencyList ? {} : { display: "none" }}
-            >
-              {
-                // make the list based on the currencies fetched
-                this.state.currencies.map((currency, index) => {
-                  return (
-                    <div
-                      className="option"
-                      key={index}
-                      onClick={() => {
-                        this.setShowCurrencyList(); // close the list
-                        this.setCurrentCurrency(currency.symbol); // change the selected currency symbol in state
-                        this.props.setCurrency(currency.label); // change selected currency in App.js
-                      }}
-                    >
-                      {currency.symbol + " " + currency.label}
-                    </div>
-                  );
-                })
-              }
-            </div>
-          </div>
+          <CurrenciesList setCurrency={this.props.setCurrency} />
           <MiniCart
             cart={this.props.cart}
             currency={this.props.currency}
@@ -133,7 +52,6 @@ export class Navbar extends Component {
             decreaseQuantity={this.props.decreaseQuantity}
             setAttribute={this.props.setAttribute}
             closeCurrencyListIfOpen={this.closeCurrencyListIfOpen}
-            showCurrencyList={this.state.showCurrencyList}
             calculateTotal={this.props.calculateTotal}
             checkout={this.props.checkout}
           />
