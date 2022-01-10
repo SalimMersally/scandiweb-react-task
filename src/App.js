@@ -174,7 +174,6 @@ export class App extends Component {
               <ProductDescription
                 currency={this.state.currency}
                 addToCart={this.addToCart}
-                cart={this.state.cart}
               />
             }
           />

@@ -18,6 +18,11 @@
   margin: 0px 0px 10px 0px;
 }
 
+.imageList img:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
 .productImage {
   width: 50%;
   box-sizing: border-box;
@@ -96,6 +101,7 @@
 
 .attributeItem:hover {
   cursor: pointer;
+  transform: scale(1.05);
 }
 
 .selectedAttribute {
@@ -117,8 +123,8 @@
   color: #1d1f22;
 }
 
-.productInfo a button,
-.productInCart {
+.productInfo button,
+.productOut {
   width: 100%;
   padding: 16px 32px;
   min-height: 52px;
