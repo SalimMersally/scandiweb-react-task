@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 // Styles
-import "../../styles/minicart.css";
+import "../../../styles/minicart.css";
 
 // components
 import CartIcon from "./CartIcon";

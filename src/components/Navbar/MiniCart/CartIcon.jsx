@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 // Icons
-import { CartIcon as Icon } from "../../icons/CartIcon";
+import { CartIcon as Icon } from "../../../icons/CartIcon";
 
 export class CartIcon extends Component {
   render() {

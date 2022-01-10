@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 
 // Icons
-import PlusIcon from "../../icons/PlusIcon";
-import MinusIcon from "../../icons/MinusIcon";
+import PlusIcon from "../../../icons/PlusIcon";
+import MinusIcon from "../../../icons/MinusIcon";
 
 export class ItemQuantity extends Component {
   render() {
