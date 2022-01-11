@@ -88,7 +88,7 @@ export class MiniCart extends Component {
               cart.map((item, index) => {
                 return (
                   <CartItem
-                    key={index}
+                    key={"CartItem: " + index}
                     item={item}
                     currency={currency}
                     index={index}

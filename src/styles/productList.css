@@ -27,6 +27,15 @@
   object-fit: cover;
 }
 
+.gridItem {
+  position: relative;
+}
+
+.gridItem a {
+  color: inherit;
+  text-decoration: inherit;
+}
+
 .productItem,
 .productItemDisabled {
   padding: 10px;
@@ -34,7 +43,6 @@
   width: 300px;
   display: flex;
   flex-direction: column;
-  position: relative;
 }
 
 .productItemDisabled {
@@ -49,18 +57,25 @@
 .addToCart {
   display: none;
   position: absolute;
-  bottom: 60px;
+  bottom: 70px;
   right: 25px;
   border-radius: 50%;
   background-color: rgba(94, 206, 123, 1);
   width: 52px;
   height: 52px;
+  z-index: 1;
 }
 
-.productItem:hover .addToCart {
+.gridItem:hover .addToCart {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.addToCart:hover {
+  transform: scale(1.1);
+  filter: brightness(0.9);
+  cursor: pointer;
 }
 
 .productName {

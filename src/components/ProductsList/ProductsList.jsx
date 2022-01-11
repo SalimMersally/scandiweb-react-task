@@ -29,9 +29,9 @@ export class ProductsList extends Component {
         },
       })
       .then((result) =>
-        this.setState((prev) => {
+        this.setState(() => {
           let products = result.data.category.products;
-          return { ...prev, products };
+          return { products };
         })
       )
       .catch((error) => console.log(error));
@@ -49,9 +49,9 @@ export class ProductsList extends Component {
           },
         })
         .then((result) =>
-          this.setState((prev) => {
+          this.setState(() => {
             let products = result.data.category.products;
-            return { ...prev, products };
+            return { products };
           })
         )
         .catch((error) => console.log(error));
@@ -71,6 +71,7 @@ export class ProductsList extends Component {
                 product={product}
                 key={product.id}
                 currency={this.props.currency}
+                addToCart={this.props.addToCart}
               />
             );
           })}

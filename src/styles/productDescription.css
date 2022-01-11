@@ -3,6 +3,7 @@
 .productDesc {
   margin: 80px 0px 40px 0px;
   display: flex;
+  justify-content: space-between;
 }
 
 .imageList {
@@ -137,6 +138,11 @@
   margin-bottom: 20px;
   box-sizing: border-box;
   text-align: center;
+}
+
+.productOut {
+  opacity: 0.7;
+  filter: brightness(0.8);
 }
 
 .productInfo button:hover {

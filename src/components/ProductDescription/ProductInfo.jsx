@@ -6,6 +6,7 @@ import ProductAttribute from "./ProductAttribute";
 export class ProductInfo extends Component {
   render() {
     const {
+      id,
       name,
       brand,
       attributes,
@@ -25,6 +26,7 @@ export class ProductInfo extends Component {
           {attributes.map((attribute, attIndex) => {
             return (
               <ProductAttribute
+                key={id + " Attribute: " + attribute.id}
                 attribute={attribute}
                 attIndex={attIndex}
                 selectedAttributes={selectedAttributes}

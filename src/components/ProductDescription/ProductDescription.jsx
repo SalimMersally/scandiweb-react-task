@@ -35,7 +35,12 @@ export class ProductDescription extends Component {
       })
       .then((result) => {
         const product = result.data.product;
-        const selectedAttributes = product.attributes.map((attribue) => 0);
+        let selectedAttributes = [];
+
+        if (product.attributes) {
+          selectedAttributes = Array(product.attributes.length).fill(0);
+        }
+
         this.setState({
           product,
           selectedAttributes,
@@ -62,8 +67,16 @@ export class ProductDescription extends Component {
   };
 
   render() {
-    const { name, brand, attributes, description, inStock, prices, gallery } =
-      this.state.product;
+    const {
+      id,
+      name,
+      brand,
+      attributes,
+      description,
+      inStock,
+      prices,
+      gallery,
+    } = this.state.product;
     const { currency } = this.props;
 
     let currentPrice = prices.filter((p) => {
@@ -75,6 +88,7 @@ export class ProductDescription extends Component {
       <div className="productDesc">
         <ProductImages gallery={gallery} name={name} />
         <ProductInfo
+          id={id}
           brand={brand}
           name={name}
           attributes={attributes}

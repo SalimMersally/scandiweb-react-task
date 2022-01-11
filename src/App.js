@@ -25,6 +25,7 @@ export class App extends Component {
       currency: "",
       categories: [],
       category: "",
+      popUpStyle: "hidden",
     };
   }
 
@@ -55,12 +56,42 @@ export class App extends Component {
   // the product contains the selectedAttributes
   // the default quantity is 1 at the start
   addToCart = (product) => {
-    this.setState((prev) => {
-      const productToAdd = { product, quantity: 1 };
-      const cart = [...prev.cart];
-      cart.push(productToAdd);
-      return { ...prev, cart };
+    let inCart = false;
+    this.state.cart.forEach((productInCart, pIndex) => {
+      if (product.id === productInCart.product.id) {
+        const cartSelection = productInCart.product.selectAttributes;
+        inCart = true;
+        product.selectAttributes.forEach((attribute, aIndex) => {
+          if (attribute !== cartSelection[aIndex]) {
+            inCart = false;
+          }
+        });
+        if (inCart) {
+          this.increaseQunatity(pIndex);
+        }
+      }
     });
+    if (!inCart) {
+      this.setState((prev) => {
+        const cart = [...prev.cart];
+        cart.push({ product, quantity: 1 });
+        return { ...prev, cart };
+      });
+    }
+    this.showPopUp();
+  };
+
+  showPopUp = () => {
+    const popUpStyle = "popUp";
+    this.setState((prev) => {
+      return { ...prev, popUpStyle };
+    });
+    setTimeout(() => {
+      const popUpStyle = "hidden";
+      this.setState((prev) => {
+        return { ...prev, popUpStyle };
+      });
+    }, 3000);
   };
 
   // increase the quantity of the prduct at index
@@ -144,6 +175,9 @@ export class App extends Component {
   render() {
     return (
       <Router>
+        <div className={this.state.popUpStyle}>
+          Item Added Succefully to Cart
+        </div>
         <Navbar
           setCurrency={this.setCurrency}
           cart={this.state.cart}
@@ -164,6 +198,7 @@ export class App extends Component {
               <ProductList
                 currency={this.state.currency}
                 category={this.state.category}
+                addToCart={this.addToCart}
               />
             }
             exact
