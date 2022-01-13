@@ -17,13 +17,7 @@ export class CartFooter extends Component {
           <Link to="/cart" onClick={setShowMiniCart}>
             <button className="viewBagButton">VIEW BAG</button>
           </Link>
-          <Link
-            to="/"
-            onClick={() => {
-              setShowMiniCart();
-              checkout();
-            }}
-          >
+          <Link to="/" onClick={checkout}>
             <button className="checkoutButton">CHECKOUT</button>
           </Link>
         </div>

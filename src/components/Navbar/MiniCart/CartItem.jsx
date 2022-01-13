@@ -24,11 +24,11 @@ export class CartItem extends Component {
           <h3>{name}</h3>
           <p>{price.currency.symbol + "" + price.amount}</p>
           <div className="miniCartAttributes">
-            {attributes.map((attribute, index) => {
+            {attributes.map((attribute, attIndex) => {
               return (
                 <ItemAttribute
                   attribute={attribute}
-                  index={index}
+                  attIndex={attIndex}
                   selectedAttributes={selectedAttributes}
                   key={attribute.id}
                 />
@@ -37,10 +37,10 @@ export class CartItem extends Component {
           </div>
         </div>
         <ItemQuantity
+          index={index}
           quantity={quantity}
           increaseQuantity={increaseQuantity}
           decreaseQuantity={decreaseQuantity}
-          index={index}
         />
         <div className="miniCartItemImage">
           <img src={gallery[0]} alt={name} />

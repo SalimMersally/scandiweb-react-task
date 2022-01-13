@@ -13,7 +13,7 @@ export class CurrenciesList extends Component {
     super(props);
     this.state = {
       currencies: [], // the fetched currencies list
-      currentCurrency: "", // the select currency symbole
+      currentCurrencySymbol: "", // the select currency symbole
       showCurrencyList: false,
     };
     // reference of this component
@@ -30,9 +30,9 @@ export class CurrenciesList extends Component {
       .then((result) =>
         this.setState((prev) => {
           const currencies = result.data.currencies;
-          const currentCurrency = currencies[0].symbol;
+          const currentCurrencySymbol = currencies[0].symbol;
           this.props.setCurrency(currencies[0].label);
-          return { ...prev, currencies, currentCurrency };
+          return { ...prev, currencies, currentCurrencySymbol };
         })
       )
       .catch((error) => console.log(error));
@@ -54,13 +54,13 @@ export class CurrenciesList extends Component {
   }
 
   // set a new current currency by the user
-  setCurrentCurrency = (currentCurrency) => {
+  setCurrentCurrency = (currentCurrencySymbol) => {
     this.setState((prev) => {
-      return { ...prev, currentCurrency };
+      return { ...prev, currentCurrencySymbol };
     });
   };
 
-  // on click show the currency list
+  // toggle showCurrencyList
   setShowCurrencyList = () => {
     const showCurrencyList = !this.state.showCurrencyList;
     this.setState((prev) => {
@@ -69,35 +69,30 @@ export class CurrenciesList extends Component {
   };
 
   render() {
+    const { showCurrencyList, currencies, currentCurrencySymbol } = this.state;
+
     return (
       <div className="select" ref={this.ref}>
         <div className="selectedOption" onClick={this.setShowCurrencyList}>
-          <p>{this.state.currentCurrency}</p>
-          {this.state.showCurrencyList ? <UpArrow /> : <DownArrow />}
+          <p>{currentCurrencySymbol}</p>
+          {showCurrencyList ? <UpArrow /> : <DownArrow />}
         </div>
-        <div
-          className={
-            this.state.showCurrencyList ? "selectList" : "selectClosed"
-          }
-        >
-          {
-            // make the list based on the currencies fetched
-            this.state.currencies.map((currency, index) => {
-              return (
-                <div
-                  className="option"
-                  key={index}
-                  onClick={() => {
-                    this.setShowCurrencyList(); // close the list
-                    this.setCurrentCurrency(currency.symbol); // change the selected currency symbol in state
-                    this.props.setCurrency(currency.label); // change selected currency in App.js
-                  }}
-                >
-                  {currency.symbol + " " + currency.label}
-                </div>
-              );
-            })
-          }
+        <div className={showCurrencyList ? "selectList" : "selectClosed"}>
+          {currencies.map((currency) => {
+            return (
+              <div
+                className="option"
+                key={currency.label}
+                onClick={() => {
+                  this.setShowCurrencyList(); // close the list
+                  this.setCurrentCurrency(currency.symbol); // change the selected currency symbol in state
+                  this.props.setCurrency(currency.label); // change selected currency in App.js
+                }}
+              >
+                {currency.symbol + " " + currency.label}
+              </div>
+            );
+          })}
         </div>
       </div>
     );

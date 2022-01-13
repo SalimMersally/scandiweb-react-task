@@ -2,20 +2,20 @@ import React, { Component } from "react";
 
 export class ItemAttribute extends Component {
   render() {
-    const { attribute, index, selectedAttributes } = this.props;
+    const { attribute, attIndex, selectedAttributes } = this.props;
     const { name, type, items } = attribute;
 
     return (
       <div>
         <div className="miniCartAttributeName">{name + ":"}</div>
         <div className="miniCartAttribute">
-          {items.map((item, index1) => {
+          {items.map((item, itemIndex) => {
             const { displayValue, id, value } = item;
 
             let className = "miniCartAttributeItem";
             let style = {};
 
-            if (selectedAttributes[index] === index1) {
+            if (selectedAttributes[attIndex] === itemIndex) {
               if (type === "swatch") {
                 className += " miniCartAttributeSelectedItemSwatch";
               } else {
@@ -35,7 +35,11 @@ export class ItemAttribute extends Component {
             }
 
             return (
-              <div key={id} className={className} style={style}>
+              <div
+                key={"Attribute: " + name + " item: " + id}
+                className={className}
+                style={style}
+              >
                 {displayValue}
               </div>
             );

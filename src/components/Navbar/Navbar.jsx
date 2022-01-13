@@ -16,7 +16,6 @@ export class Navbar extends Component {
     return (
       <nav>
         <NavButtons
-          categories={this.props.categories}
           currentCategory={this.props.currentCategory}
           setCategory={this.props.setCategory}
         />
@@ -30,7 +29,6 @@ export class Navbar extends Component {
             currentCurrency={this.props.currentCurrency}
             increaseQuantity={this.props.increaseQuantity}
             decreaseQuantity={this.props.decreaseQuantity}
-            setAttribute={this.props.setAttribute}
             calculateTotal={this.props.calculateTotal}
             checkout={this.props.checkout}
           />

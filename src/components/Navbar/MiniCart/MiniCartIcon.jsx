@@ -9,8 +9,8 @@ export class MiniCartIcon extends Component {
     // show the number of items over the cart icon only if there is itmes
 
     return (
-      <div className="miniCartButton">
-        <div className="cartIcon" onClick={setShowMiniCart}>
+      <div className="miniCartButton" onClick={setShowMiniCart}>
+        <div className="cartIcon">
           <CartIcon />
           {length === 0 ? "" : <div className="cartLength">{length}</div>}
         </div>

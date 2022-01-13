@@ -90,8 +90,8 @@ export class MiniCart extends Component {
                   <CartItem
                     key={"CartItem: " + index}
                     item={item}
-                    currentCurrency={currentCurrency}
                     index={index}
+                    currentCurrency={currentCurrency}
                     increaseQuantity={increaseQuantity}
                     decreaseQuantity={decreaseQuantity}
                   />

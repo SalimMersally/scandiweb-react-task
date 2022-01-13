@@ -70,7 +70,7 @@ nav {
   background-color: white;
   position: absolute;
   width: 100px;
-  right: 130px;
+  right: 150px;
   top: 60px;
   box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19);
 }
@@ -95,6 +95,7 @@ nav {
 
 .option {
   margin: 2px 5px;
+  padding: 0px 2px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
