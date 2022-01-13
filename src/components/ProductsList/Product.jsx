@@ -17,13 +17,13 @@ export class Product extends Component {
       })
       .then((result) => {
         const product = result.data.product;
-        let selectAttributes = [];
+        let selectedAttributes = [];
 
         if (product.attributes) {
-          selectAttributes = Array(product.attributes.length).fill(0);
+          selectedAttributes = Array(product.attributes.length).fill(0);
         }
 
-        this.props.addToCart({ ...product, selectAttributes });
+        this.props.addToCart({ ...product, selectedAttributes });
       })
       .catch((error) => console.log(error));
   };
@@ -33,7 +33,7 @@ export class Product extends Component {
 
     // filter the current price from the prices array
     const price = prices.filter((p) => {
-      return p.currency.label === this.props.currency;
+      return p.currency.label === this.props.currentCurrency;
     });
 
     return (
@@ -42,9 +42,13 @@ export class Product extends Component {
           <div className={inStock ? "productItem" : "productItemDisabled"}>
             <img src={gallery[0]} alt={name} />
             <div className="productName">{name}</div>
-            <div className="productPrice">
-              {price[0].currency.symbol + "" + price[0].amount}
-            </div>
+            {price[0] ? (
+              <div className="productPrice">
+                {price[0].currency.symbol + "" + price[0].amount}
+              </div>
+            ) : (
+              ""
+            )}
             {inStock ? "" : <div className="outStock">OUT OF STOCK</div>}
           </div>
         </Link>

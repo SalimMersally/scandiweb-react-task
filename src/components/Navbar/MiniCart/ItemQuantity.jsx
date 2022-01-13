@@ -6,13 +6,13 @@ import MinusIcon from "../../../icons/MinusIcon";
 
 export class ItemQuantity extends Component {
   render() {
-    const { quantity, increaseQunatity, decreaseQuantity, index } = this.props;
+    const { quantity, increaseQuantity, decreaseQuantity, index } = this.props;
 
     return (
       <div className="miniCartItemQuantity">
         <div
           className="miniCartItemQuantityBox"
-          onClick={() => increaseQunatity(index)}
+          onClick={() => increaseQuantity(index)}
         >
           <PlusIcon />
         </div>

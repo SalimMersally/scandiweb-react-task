@@ -6,14 +6,14 @@ import ItemAttribute from "./ItemAttribute";
 
 export class CartItem extends Component {
   render() {
-    const { item, index, currency, increaseQunatity, decreaseQuantity } =
+    const { item, index, currentCurrency, increaseQuantity, decreaseQuantity } =
       this.props;
     const { product, quantity } = item;
-    const { brand, name, attributes, gallery, prices, selectAttributes } =
+    const { brand, name, attributes, gallery, prices, selectedAttributes } =
       product;
 
     let price = prices.filter((p) => {
-      return p.currency.label === currency;
+      return p.currency.label === currentCurrency;
     });
     price = price[0];
 
@@ -29,7 +29,7 @@ export class CartItem extends Component {
                 <ItemAttribute
                   attribute={attribute}
                   index={index}
-                  selectAttributes={selectAttributes}
+                  selectedAttributes={selectedAttributes}
                   key={attribute.id}
                 />
               );
@@ -38,7 +38,7 @@ export class CartItem extends Component {
         </div>
         <ItemQuantity
           quantity={quantity}
-          increaseQunatity={increaseQunatity}
+          increaseQuantity={increaseQuantity}
           decreaseQuantity={decreaseQuantity}
           index={index}
         />

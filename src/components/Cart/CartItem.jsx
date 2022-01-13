@@ -11,7 +11,8 @@ export class CartItem extends Component {
       this.props;
 
     const { product, quantity } = item;
-    const { id, name, brand, attributes, gallery, selectAttributes } = product;
+    const { id, name, brand, attributes, gallery, selectedAttributes } =
+      product;
 
     return (
       <div className="cartItem" key={item.product.id}>
@@ -26,7 +27,7 @@ export class CartItem extends Component {
                   key={id + " attribute " + attIndex}
                   attribute={attribute}
                   attIndex={attIndex}
-                  selectAttributes={selectAttributes}
+                  selectedAttributes={selectedAttributes}
                 />
               );
             })}

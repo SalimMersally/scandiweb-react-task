@@ -12,14 +12,15 @@ export class Cart extends Component {
   // also we can here change the image displayed
 
   render() {
-    const { cart, currency, increaseQuantity, decreaseQuantity } = this.props;
+    const { cart, currentCurrency, increaseQuantity, decreaseQuantity } =
+      this.props;
 
     return (
       <div className="cart">
         <div className="cartHeader">CART</div>
         {cart.map((item, index) => {
           let price = item.product.prices.filter((p) => {
-            return p.currency.label === currency;
+            return p.currency.label === currentCurrency;
           });
 
           return (

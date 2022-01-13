@@ -61,8 +61,8 @@ export class ProductDescription extends Component {
   // add product to cart with selected attributes
   // function addToCart is provided from App.js
   addToCart = () => {
-    const selectAttributes = this.state.selectedAttributes;
-    const product = { ...this.state.product, selectAttributes };
+    const selectedAttributes = this.state.selectedAttributes;
+    const product = { ...this.state.product, selectedAttributes };
     this.props.addToCart(product);
   };
 
@@ -77,10 +77,10 @@ export class ProductDescription extends Component {
       prices,
       gallery,
     } = this.state.product;
-    const { currency } = this.props;
+    const { currentCurrency } = this.props;
 
     let currentPrice = prices.filter((p) => {
-      return p.currency.label === currency;
+      return p.currency.label === currentCurrency;
     });
     currentPrice = currentPrice[0];
 

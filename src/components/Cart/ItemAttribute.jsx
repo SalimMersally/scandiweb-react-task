@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 export class ItemAttribute extends Component {
   render() {
-    const { attIndex, attribute, selectAttributes } = this.props;
+    const { attIndex, attribute, selectedAttributes } = this.props;
     const { id, type, name } = attribute;
 
     return (
@@ -14,7 +14,7 @@ export class ItemAttribute extends Component {
             let className = "cartAttributeItem";
             let style = {};
 
-            if (selectAttributes[attIndex] === itemIndex) {
+            if (selectedAttributes[attIndex] === itemIndex) {
               if (type === "swatch") {
                 className += " cartAttributeSelectedItemSwatch";
               } else {

@@ -1,10 +1,6 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
-// Queries
-import { GET_CATEGORIES } from "./Queries";
-import client from "./Client";
-
 // Styles
 import "./App.css";
 
@@ -22,52 +18,43 @@ export class App extends Component {
     // changed it in other component is done by function made here and provided as props
     this.state = {
       cart: [],
-      currency: "",
-      categories: [],
+      currentCurrency: "",
       currentCategory: "",
       popUpStyle: "hidden",
     };
   }
 
-  // on mount get all categories and put them in state
-  componentDidMount() {
-    client
-      .query({
-        query: GET_CATEGORIES,
-      })
-      .then((result) =>
-        this.setState((prev) => {
-          const categories = result.data.categories;
-          const currentCategory = categories[0].name;
-          return { ...prev, categories, currentCategory };
-        })
-      )
-      .catch((error) => console.log(error));
-  }
-
-  // set the currency label
-  setCurrency = (currency) => {
+  // set category in product list page
+  setCategory = (currentCategory) => {
     this.setState((prev) => {
-      return { ...prev, currency };
+      return { ...prev, currentCategory };
     });
   };
 
-  // add a product to cart
+  // set the currency label
+  setCurrency = (currentCurrency) => {
+    this.setState((prev) => {
+      return { ...prev, currentCurrency };
+    });
+  };
+
+  // add a product to cart (the default quantity is 1 at the start)
   // the product contains the selectedAttributes
-  // the default quantity is 1 at the start
+  // if the product is already available in the cart with the same selected attributes
+  // we just increase the quantity
   addToCart = (product) => {
     let inCart = false;
     this.state.cart.forEach((productInCart, pIndex) => {
       if (product.id === productInCart.product.id) {
-        const cartSelection = productInCart.product.selectAttributes;
+        const cartSelection = productInCart.product.selectedAttributes;
         inCart = true;
-        product.selectAttributes.forEach((attribute, aIndex) => {
+        product.selectedAttributes.forEach((attribute, aIndex) => {
           if (attribute !== cartSelection[aIndex]) {
             inCart = false;
           }
         });
         if (inCart) {
-          this.increaseQunatity(pIndex);
+          this.increaseQuantity(pIndex);
         }
       }
     });
@@ -81,13 +68,14 @@ export class App extends Component {
     this.showPopUp();
   };
 
+  // show pop with css animtion
   showPopUp = () => {
-    const popUpStyle = "popUp";
+    let popUpStyle = "popUp";
     this.setState((prev) => {
       return { ...prev, popUpStyle };
     });
     setTimeout(() => {
-      const popUpStyle = "hidden";
+      popUpStyle = "hidden";
       this.setState((prev) => {
         return { ...prev, popUpStyle };
       });
@@ -132,19 +120,12 @@ export class App extends Component {
     let symbol = "";
     this.state.cart.forEach((item) => {
       let price = item.product.prices.filter((p) => {
-        return p.currency.label === this.state.currency;
+        return p.currency.label === this.state.currentCurrency;
       });
       total = total + item.quantity * price[0].amount;
       symbol = price[0].currency.symbol;
     });
     return symbol + "" + total.toFixed(2);
-  };
-
-  // set category in product list page
-  setCategory = (currentCategory) => {
-    this.setState((prev) => {
-      return { ...prev, currentCategory };
-    });
   };
 
   // checkout is by clearing the cart and alerting the user of successfull purchase
@@ -157,57 +138,64 @@ export class App extends Component {
   };
 
   render() {
+    const { currentCategory, currentCurrency } = this.state;
+
     return (
       <Router>
         <div className={this.state.popUpStyle}>
           Item Added Succefully to Cart
         </div>
         <Navbar
+          currentCurrency={this.state.currentCurrency}
           setCurrency={this.setCurrency}
-          cart={this.state.cart}
-          currency={this.state.currency}
-          increaseQunatity={this.increaseQunatity}
-          decreaseQuantity={this.decreaseQuantity}
-          setAttribute={this.setAttribute}
-          calculateTotal={this.calculateTotal}
-          categories={this.state.categories}
           currentCategory={this.state.currentCategory}
           setCategory={this.setCategory}
+          cart={this.state.cart}
+          increaseQuantity={this.increaseQuantity}
+          decreaseQuantity={this.decreaseQuantity}
+          calculateTotal={this.calculateTotal}
           checkout={this.checkout}
         />
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <ProductList
-                currency={this.state.currency}
-                currentCategory={this.state.currentCategory}
-                addToCart={this.addToCart}
+        {
+          // We will not mount these component until we fetch currencies and categories to avoid errors
+          currentCategory !== "" && currentCurrency !== "" ? (
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <ProductList
+                    currentCurrency={this.state.currentCurrency}
+                    currentCategory={this.state.currentCategory}
+                    addToCart={this.addToCart}
+                  />
+                }
+                exact
+              ></Route>
+              <Route
+                path="/product/:productID"
+                element={
+                  <ProductDescription
+                    currentCurrency={this.state.currentCurrency}
+                    addToCart={this.addToCart}
+                  />
+                }
               />
-            }
-            exact
-          ></Route>
-          <Route
-            path="/product/:productID"
-            element={
-              <ProductDescription
-                currency={this.state.currency}
-                addToCart={this.addToCart}
+              <Route
+                path="/cart"
+                element={
+                  <Cart
+                    cart={this.state.cart}
+                    currentCurrency={this.state.currentCurrency}
+                    increaseQuantity={this.increaseQuantity}
+                    decreaseQuantity={this.decreaseQuantity}
+                  />
+                }
               />
-            }
-          />
-          <Route
-            path="/cart"
-            element={
-              <Cart
-                cart={this.state.cart}
-                currency={this.state.currency}
-                increaseQuantity={this.increaseQuantity}
-                decreaseQuantity={this.decreaseQuantity}
-              />
-            }
-          />
-        </Routes>
+            </Routes>
+          ) : (
+            ""
+          )
+        }
       </Router>
     );
   }

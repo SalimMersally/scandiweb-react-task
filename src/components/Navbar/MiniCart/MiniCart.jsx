@@ -64,8 +64,8 @@ export class MiniCart extends Component {
   render() {
     const {
       cart,
-      currency,
-      increaseQunatity,
+      currentCurrency,
+      increaseQuantity,
       decreaseQuantity,
       calculateTotal,
       checkout,
@@ -90,9 +90,9 @@ export class MiniCart extends Component {
                   <CartItem
                     key={"CartItem: " + index}
                     item={item}
-                    currency={currency}
+                    currentCurrency={currentCurrency}
                     index={index}
-                    increaseQunatity={increaseQunatity}
+                    increaseQuantity={increaseQuantity}
                     decreaseQuantity={decreaseQuantity}
                   />
                 );

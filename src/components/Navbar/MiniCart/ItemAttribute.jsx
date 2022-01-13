@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 export class ItemAttribute extends Component {
   render() {
-    const { attribute, index, selectAttributes } = this.props;
+    const { attribute, index, selectedAttributes } = this.props;
     const { name, type, items } = attribute;
 
     return (
@@ -15,7 +15,7 @@ export class ItemAttribute extends Component {
             let className = "miniCartAttributeItem";
             let style = {};
 
-            if (selectAttributes[index] === index1) {
+            if (selectedAttributes[index] === index1) {
               if (type === "swatch") {
                 className += " miniCartAttributeSelectedItemSwatch";
               } else {

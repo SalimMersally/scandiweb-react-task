@@ -27,11 +27,10 @@ export class Navbar extends Component {
           <CurrenciesList setCurrency={this.props.setCurrency} />
           <MiniCart
             cart={this.props.cart}
-            currency={this.props.currency}
-            increaseQunatity={this.props.increaseQunatity}
+            currentCurrency={this.props.currentCurrency}
+            increaseQuantity={this.props.increaseQuantity}
             decreaseQuantity={this.props.decreaseQuantity}
             setAttribute={this.props.setAttribute}
-            closeCurrencyListIfOpen={this.closeCurrencyListIfOpen}
             calculateTotal={this.props.calculateTotal}
             checkout={this.props.checkout}
           />

@@ -70,7 +70,7 @@ export class ProductsList extends Component {
               <Product
                 product={product}
                 key={product.id}
-                currency={this.props.currency}
+                currentCurrency={this.props.currentCurrency}
                 addToCart={this.props.addToCart}
               />
             );
