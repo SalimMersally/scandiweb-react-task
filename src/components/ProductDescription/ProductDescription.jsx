@@ -16,12 +16,9 @@ export class ProductDescription extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      product: {
-        gallery: [],
-        prices: [],
-        attributes: [],
-      },
+      product: {},
       selectedAttributes: [], // the index of the selected attributes
+      fetched: false,
     };
   }
 
@@ -35,8 +32,10 @@ export class ProductDescription extends Component {
       })
       .then((result) => {
         const product = result.data.product;
+        const fetched = true;
         let selectedAttributes = [];
 
+        // by default we select the first item of each attribute
         if (product.attributes) {
           selectedAttributes = Array(product.attributes.length).fill(0);
         }
@@ -44,6 +43,7 @@ export class ProductDescription extends Component {
         this.setState({
           product,
           selectedAttributes,
+          fetched,
         });
       })
       .catch((error) => console.log(error));
@@ -67,6 +67,10 @@ export class ProductDescription extends Component {
   };
 
   render() {
+    if (!this.state.fetched) {
+      return "";
+    }
+
     const {
       id,
       name,
@@ -79,10 +83,9 @@ export class ProductDescription extends Component {
     } = this.state.product;
     const { currentCurrency } = this.props;
 
-    let currentPrice = prices.filter((p) => {
+    let price = prices.find((p) => {
       return p.currency.label === currentCurrency;
     });
-    currentPrice = currentPrice[0];
 
     return (
       <div className="productDesc">
@@ -94,7 +97,7 @@ export class ProductDescription extends Component {
           attributes={attributes}
           description={description}
           inStock={inStock}
-          price={currentPrice}
+          price={price}
           selectedAttributes={this.state.selectedAttributes}
           selectAttribute={this.selectAttribute}
           addToCart={this.addToCart}

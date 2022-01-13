@@ -12,10 +12,9 @@ export class CartItem extends Component {
     const { brand, name, attributes, gallery, prices, selectedAttributes } =
       product;
 
-    let price = prices.filter((p) => {
+    let price = prices.find((p) => {
       return p.currency.label === currentCurrency;
     });
-    price = price[0];
 
     return (
       <div className="miniCartItem">

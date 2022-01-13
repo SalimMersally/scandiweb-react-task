@@ -68,8 +68,8 @@ export class ProductsList extends Component {
           {this.state.products.map((product) => {
             return (
               <Product
+                key={product.id + " card"}
                 product={product}
-                key={product.id}
                 currentCurrency={this.props.currentCurrency}
                 addToCart={this.props.addToCart}
               />

@@ -35,7 +35,7 @@ export class ProductImages extends Component {
             return (
               <img
                 src={url}
-                key={index}
+                key={"MiniImage " + index}
                 alt={name + " image " + index}
                 onClick={() => this.setImage(url)}
               />
@@ -43,7 +43,9 @@ export class ProductImages extends Component {
           })}
         </div>
         <div className="productImage">
-          <img src={this.state.currentURL} alt={name + " big image"} />
+          <div>
+            <img src={this.state.currentURL} alt={name + " big image"} />
+          </div>
         </div>
       </>
     );

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import JsxParser from "react-jsx-parser";
 
 // Components
 import ProductAttribute from "./ProductAttribute";
@@ -37,14 +38,16 @@ export class ProductInfo extends Component {
         </div>
         <div className="productInfoPrice">
           <h2>PRICE: </h2>
-          {price ? <p>{price.currency.symbol + "" + price.amount}</p> : ""}
+          <p>{price.currency.symbol + "" + price.amount}</p>
         </div>
         {inStock ? (
           <button onClick={addToCart}>ADD TO CART</button>
         ) : (
           <div className="productOut">PRODUCT OUT OF STOCK</div>
         )}
-        <div className="productDescription">{description}</div>
+        <div className="productDescription">
+          <JsxParser jsx={description} />
+        </div>
       </div>
     );
   }

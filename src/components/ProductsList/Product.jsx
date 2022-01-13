@@ -9,6 +9,10 @@ import client from "../../Client";
 import CartIcon from "../../icons/CartIcon";
 
 export class Product extends Component {
+  // The item in the list are not fetched with all values
+  // when adding them to cart we need them all
+  // so we fetch the specific product by id and get all it values
+  // then add it to cart
   addToCart = () => {
     client
       .query({
@@ -32,7 +36,7 @@ export class Product extends Component {
     const { prices, gallery, name, id, inStock } = this.props.product;
 
     // filter the current price from the prices array
-    const price = prices.filter((p) => {
+    const price = prices.find((p) => {
       return p.currency.label === this.props.currentCurrency;
     });
 
@@ -42,13 +46,9 @@ export class Product extends Component {
           <div className={inStock ? "productItem" : "productItemDisabled"}>
             <img src={gallery[0]} alt={name} />
             <div className="productName">{name}</div>
-            {price[0] ? (
-              <div className="productPrice">
-                {price[0].currency.symbol + "" + price[0].amount}
-              </div>
-            ) : (
-              ""
-            )}
+            <div className="productPrice">
+              {price.currency.symbol + "" + price.amount}
+            </div>
             {inStock ? "" : <div className="outStock">OUT OF STOCK</div>}
           </div>
         </Link>
