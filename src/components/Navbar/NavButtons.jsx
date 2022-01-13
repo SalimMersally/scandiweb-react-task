@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export class NavButtons extends Component {
   render() {
-    const { category, categories, setCategory } = this.props;
+    const { categories, currentCategory, setCategory } = this.props;
 
     return (
       <div className="navButtons">
@@ -13,7 +13,7 @@ export class NavButtons extends Component {
             const { name } = current;
             let className = "navButton";
             // check the selected one to show it in different style
-            if (name === category) {
+            if (name === currentCategory) {
               className += " navButtonSelected";
             }
             // when a user click on a button it become the selected one

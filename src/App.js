@@ -24,7 +24,7 @@ export class App extends Component {
       cart: [],
       currency: "",
       categories: [],
-      category: "",
+      currentCategory: "",
       popUpStyle: "hidden",
     };
   }
@@ -38,8 +38,8 @@ export class App extends Component {
       .then((result) =>
         this.setState((prev) => {
           const categories = result.data.categories;
-          const category = categories[0].name;
-          return { ...prev, categories, category };
+          const currentCategory = categories[0].name;
+          return { ...prev, categories, currentCategory };
         })
       )
       .catch((error) => console.log(error));
@@ -141,9 +141,9 @@ export class App extends Component {
   };
 
   // set category in product list page
-  setCategory = (category) => {
+  setCategory = (currentCategory) => {
     this.setState((prev) => {
-      return { ...prev, category };
+      return { ...prev, currentCategory };
     });
   };
 
@@ -171,7 +171,7 @@ export class App extends Component {
           setAttribute={this.setAttribute}
           calculateTotal={this.calculateTotal}
           categories={this.state.categories}
-          category={this.state.category}
+          currentCategory={this.state.currentCategory}
           setCategory={this.setCategory}
           checkout={this.checkout}
         />
@@ -181,7 +181,7 @@ export class App extends Component {
             element={
               <ProductList
                 currency={this.state.currency}
-                category={this.state.category}
+                currentCategory={this.state.currentCategory}
                 addToCart={this.addToCart}
               />
             }

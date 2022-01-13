@@ -25,7 +25,7 @@ export class ProductsList extends Component {
       .query({
         query: GET_PRODUCTS,
         variables: {
-          category: this.props.category,
+          category: this.props.currentCategory,
         },
       })
       .then((result) =>
@@ -40,12 +40,12 @@ export class ProductsList extends Component {
   // refetch all the products if prop changed
   // meaning user changed the category
   componentDidUpdate(prevProps) {
-    if (this.props.category !== prevProps.category) {
+    if (this.props.currentCategory !== prevProps.currentCategory) {
       client
         .query({
           query: GET_PRODUCTS,
           variables: {
-            category: this.props.category,
+            category: this.props.currentCategory,
           },
         })
         .then((result) =>
@@ -62,7 +62,7 @@ export class ProductsList extends Component {
     return (
       <div>
         <div className="category">
-          Category: <span>{this.props.category.toUpperCase()}</span>
+          Category: <span>{this.props.currentCategory.toUpperCase()}</span>
         </div>
         <div className="itemsList">
           {this.state.products.map((product) => {

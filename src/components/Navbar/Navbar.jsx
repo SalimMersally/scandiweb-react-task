@@ -16,8 +16,8 @@ export class Navbar extends Component {
     return (
       <nav>
         <NavButtons
-          category={this.props.category}
           categories={this.props.categories}
+          currentCategory={this.props.currentCategory}
           setCategory={this.props.setCategory}
         />
         <div className="navLogo">
