@@ -4,7 +4,7 @@ import React, { Component } from "react";
 import "../../../styles/minicart.css";
 
 // components
-import CartIcon from "./CartIcon";
+import MiniCartIcon from "./MiniCartIcon";
 import CartHeader from "./CartHeader";
 import CartItem from "./CartItem";
 import CartFooter from "./CartFooter";
@@ -77,7 +77,7 @@ export class MiniCart extends Component {
           className={this.state.showMiniCart ? "miniCartBack" : "hide"}
         ></div>
         <div className="navCart" ref={this.ref}>
-          <CartIcon
+          <MiniCartIcon
             length={cart.length}
             setShowMiniCart={this.setShowMiniCart}
           />

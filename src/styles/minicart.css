@@ -1,12 +1,20 @@
 /* the bellow classes are all used in the minicart */
 
-.cartIcon {
-  position: relative;
+.miniCartButton {
+  height: 40px;
+  width: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.cartIcon:hover {
+.miniCartButton:hover {
   cursor: pointer;
-  background-color: rgb(255, 250, 250);
+  background-color: rgb(255, 235, 240);
+}
+
+.cartIcon {
+  position: relative;
 }
 
 .cartLength {
