@@ -95,7 +95,7 @@ export class App extends Component {
   };
 
   // increase the quantity of the prduct at index
-  increaseQunatity = (index) => {
+  increaseQuantity = (index) => {
     this.setState((prev) => {
       const cart = [...prev.cart];
       const product = prev.cart[index].product;
@@ -124,22 +124,6 @@ export class App extends Component {
         return { ...prev, cart };
       });
     }
-  };
-
-  // change the selectedAttrivute of product in cart at productIndex
-  // the attribute to change is at attributeIndex in attributes array
-  // the new selected attribute is at newItemIndex in items array
-  setAttribute = (productIndex, attributeIndex, newItemIndex) => {
-    this.setState((prev) => {
-      const cart = [...prev.cart];
-      let product = cart[productIndex].product;
-      const selectAttributes = [...product.selectAttributes];
-      selectAttributes[attributeIndex] = newItemIndex;
-      product = { ...product, selectAttributes };
-      const quantity = cart[productIndex].quantity;
-      cart[productIndex] = { product, quantity };
-      return { ...prev, cart };
-    });
   };
 
   // calculte the total price based on the current currency and quantities
@@ -218,9 +202,8 @@ export class App extends Component {
               <Cart
                 cart={this.state.cart}
                 currency={this.state.currency}
-                increaseQunatity={this.increaseQunatity}
+                increaseQuantity={this.increaseQuantity}
                 decreaseQuantity={this.decreaseQuantity}
-                setAttribute={this.setAttribute}
               />
             }
           />
