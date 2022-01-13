@@ -19,7 +19,7 @@ export class Cart extends Component {
       <div className="cart">
         <div className="cartHeader">CART</div>
         {cart.map((item, index) => {
-          let price = item.product.prices.filter((p) => {
+          let price = item.product.prices.find((p) => {
             return p.currency.label === currentCurrency;
           });
 
@@ -28,7 +28,7 @@ export class Cart extends Component {
               key={item.product.id + " " + index}
               index={index}
               item={item}
-              price={price[0]}
+              price={price}
               increaseQuantity={increaseQuantity}
               decreaseQuantity={decreaseQuantity}
             />
